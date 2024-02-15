@@ -10,7 +10,7 @@ public class ControlJugadorIS : MonoBehaviour
     [Header("Vidas")]
     public int vidasActual;
     public int vidasMax;
-    
+
     [Header("Movimiento")]
     public float velocidadMovimiento = 10.0f;
     public float velocidadRotacion = 1.0f;
@@ -20,7 +20,7 @@ public class ControlJugadorIS : MonoBehaviour
     public float maxVistaX = 45.0f;
     public float minVistaX = -45.0f;
     private float rotacionX = 0.0f;
-    
+
     private Camera camara;
     private Rigidbody fisica;
     private CapsuleCollider col;
@@ -31,6 +31,9 @@ public class ControlJugadorIS : MonoBehaviour
     private bool puedeSaltar = true;
 
     private ControlArma arma;
+
+    private bool superVelocidad;
+    private float multiplicadorVelocidad = 1.5f;
 
     private void Awake()
     {
@@ -45,28 +48,42 @@ public class ControlJugadorIS : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Time.timeScale = 1.0f;
+        ControlHUD.instancia.ActualizarNumBolasTexto(arma.municionActual, arma.municionMax);
+        ControlHUD.instancia.ActualizaBarraVida(vidasActual, vidasMax);
+        ControlHUD.instancia.ActualizarPuntuacion(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // if (ControlJuego.instancia.juegoPausado) return;
     }
 
     void FixedUpdate()
     {
+        if (ControlJuego.instancia.juegoPausado) return;
+
         // Obtener la dirección de movimiento
         Vector3 movimiento = transform.forward * movimientoInput.y + transform.right * movimientoInput.x;
 
         // Aplicar movimiento al Rigidbody
-        fisica.AddForce(movimiento * velocidadMovimiento);
+        if (superVelocidad)
+        {
+            fisica.AddForce(movimiento * velocidadMovimiento * multiplicadorVelocidad);
+
+        }
+        else
+        {
+            fisica.AddForce(movimiento * velocidadMovimiento);
+
+        }
 
         // Rotar el personaje en función de la entrada de rotación
         transform.Rotate(Vector3.up * rotacionInput.x * velocidadRotacion);
-                
+
         // Rotar la cámara en función de la entrada de rotación vertical
-        rotacionX += rotacionInput.y * velocidadRotacion;       
+        rotacionX += rotacionInput.y * velocidadRotacion;
         rotacionX = Mathf.Clamp(rotacionX, minVistaX, maxVistaX);
         camara.transform.localRotation = Quaternion.Euler(-rotacionX, 0, 0);
 
@@ -97,7 +114,7 @@ public class ControlJugadorIS : MonoBehaviour
     {
         if (arma.PuedeDisparar())
             arma.Disparar();
-                    
+
     }
 
     private bool PuedeSaltar()
@@ -107,19 +124,21 @@ public class ControlJugadorIS : MonoBehaviour
         return Physics.Raycast(transform.position, Vector3.down, col.bounds.extents.y + 0.1f);
     }
 
-/*    void OnCollisionEnter(Collision collision)
-    {
-        // Verificar si el personaje ha tocado el suelo
-        if (collision.gameObject.CompareTag("Suelo"))
+    /*    void OnCollisionEnter(Collision collision)
         {
-            puedeSaltar = true;
+            // Verificar si el personaje ha tocado el suelo
+            if (collision.gameObject.CompareTag("Suelo"))
+            {
+                puedeSaltar = true;
+            }
         }
-    }
-*/
+    */
 
     public void QuitarVidasJugador(int cantidad)
     {
         vidasActual -= cantidad;
+
+        ControlHUD.instancia.ActualizaBarraVida(vidasActual, vidasMax);
 
         if (vidasActual <= 0)
             TerminaJugador();
@@ -128,15 +147,23 @@ public class ControlJugadorIS : MonoBehaviour
     private void TerminaJugador()
     {
         Debug.Log("GAME OVER!!!");
+        ControlHUD.instancia.EstablecerVentanaFinJuego(false);
     }
 
     public void IncrementaVida(int cantidadVida)
     {
         vidasActual = Mathf.Clamp(vidasActual + cantidadVida, 0, vidasMax);
+        ControlHUD.instancia.ActualizaBarraVida(vidasActual, vidasMax);
     }
 
-    public void IncrementaBolas (int cantidadBolas)
+    public void IncrementaNumBolas(int cantidadBolas)
     {
         arma.municionActual = Mathf.Clamp(arma.municionActual + cantidadBolas, 0, arma.municionMax);
+        ControlHUD.instancia.ActualizarNumBolasTexto(arma.municionActual, arma.municionMax);
+    }
+
+    public void ActivarSuperVelocidad()
+    {
+        superVelocidad = true;
     }
 }

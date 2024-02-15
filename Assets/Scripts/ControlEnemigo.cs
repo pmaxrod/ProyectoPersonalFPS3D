@@ -63,6 +63,9 @@ public class ControlEnemigo : MonoBehaviour
     public void QuitarVidasEnemigo(int cantidad)
     {
         vidasActual -= cantidad;
+
+        ControlJuego.instancia.PonerPuntuacion(puntuacionEnemigo);
+
         if (vidasActual <= 0)
             Destroy(gameObject);
     }

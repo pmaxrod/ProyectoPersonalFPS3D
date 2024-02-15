@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class ControlArma : MonoBehaviour
@@ -43,6 +44,8 @@ public class ControlArma : MonoBehaviour
         bola.transform.position = puntoSalida.position;
         bola.transform.rotation = puntoSalida.rotation;
         bola.GetComponent<Rigidbody>().velocity = puntoSalida.forward * velocidadBola;
+        if(esJugador)
+            ControlHUD.instancia.ActualizarNumBolasTexto(municionActual, municionMax);
     }
 
 }

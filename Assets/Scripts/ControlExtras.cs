@@ -6,7 +6,8 @@ using UnityEngine;
 public enum TipoExtra
 {
     Vida,
-    Bolas
+    Bolas,
+    Velocidad
 }
 
 public class ControlExtras : MonoBehaviour
@@ -25,10 +26,13 @@ public class ControlExtras : MonoBehaviour
                     jugador.IncrementaVida(cantidad);
                     break;
                 case TipoExtra.Bolas:
-                    jugador.IncrementaBolas(cantidad);
+                    jugador.IncrementaNumBolas(cantidad);
+                    break;
+                case TipoExtra.Velocidad:
+                    jugador.IncrementaNumBolas(cantidad);
                     break;
             }
-        Destroy(gameObject);
+            Destroy(gameObject);
         }
             
     }
