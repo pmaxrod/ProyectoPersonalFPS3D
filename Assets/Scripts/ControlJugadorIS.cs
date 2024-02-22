@@ -42,7 +42,6 @@ public class ControlJugadorIS : MonoBehaviour
         col = GetComponent<CapsuleCollider>();
         arma = GetComponent<ControlArma>();
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     // Start is called before the first frame update
@@ -117,6 +116,12 @@ public class ControlJugadorIS : MonoBehaviour
 
     }
 
+    void OnSuperVelocidad()
+    {
+        if (!superVelocidad)
+            ActivarSuperVelocidad();
+    }
+
     private bool PuedeSaltar()
     {
         //Test that we are grounded by drawing an invisible line(raycast)
@@ -162,8 +167,16 @@ public class ControlJugadorIS : MonoBehaviour
         ControlHUD.instancia.ActualizarNumBolasTexto(arma.municionActual, arma.municionMax);
     }
 
+    private IEnumerator SuperVelocidadRoutine()
+    {
+        yield return new WaitForSeconds(10);
+        superVelocidad = false;
+    }
+
     public void ActivarSuperVelocidad()
     {
         superVelocidad = true;
+        Debug.Log(superVelocidad);
+        StartCoroutine(SuperVelocidadRoutine());
     }
 }
