@@ -71,7 +71,6 @@ public class ControlResistencia : MonoBehaviour
 
     void OnCorrer()
     {
-        if (!estaCorriendo)
-            estaCorriendo = true;
+        estaCorriendo = !estaCorriendo;
     }
 }

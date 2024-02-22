@@ -5,16 +5,16 @@ using UnityEngine;
 public class ControlBolas : MonoBehaviour
 {
     public GameObject particulasExplosion;
-    
+
     public int cantidadVida;
     public float tiempoActivo;
     private float tiempoDisparo;
-     
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -32,15 +32,12 @@ public class ControlBolas : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            other.GetComponent<ControlJugadorIS>().
-                QuitarVidasJugador(cantidadVida);
+            other.GetComponent<ControlJugadorIS>().QuitarVidasJugador(cantidadVida);
         else if (other.CompareTag("Enemigo"))
-            other.GetComponent<ControlEnemigo>().
-                QuitarVidasEnemigo(cantidadVida);
-        
+            other.GetComponent<ControlEnemigo>().QuitarVidasEnemigo(cantidadVida);
+
         // Creamos las partículas de explosión
-        GameObject particulas = Instantiate(particulasExplosion, 
-            transform.position, Quaternion.identity);
+        GameObject particulas = Instantiate(particulasExplosion, transform.position, Quaternion.identity);
         // Se destruye cuando pasa un segundo
         Destroy(particulas, 1.0f);
 
