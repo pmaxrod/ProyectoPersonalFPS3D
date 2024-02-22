@@ -10,7 +10,8 @@ public class ControlHUD : MonoBehaviour
     [Header("HUD")]
     public TextMeshProUGUI puntuacionTexto;
     public TextMeshProUGUI numBolasTexto;
-    public Image barraVidas;
+    //public Image barraVidas;
+    public Slider barraVidas;
 
     [Header("Ventana de Pausa")]
     public GameObject ventanaPausa;
@@ -28,7 +29,8 @@ public class ControlHUD : MonoBehaviour
 
     public void ActualizaBarraVida(int vidaActual, int vidaMax)
     {
-        barraVidas.fillAmount = (float)vidaActual /(float)vidaMax;
+        //barraVidas.fillAmount = (float)vidaActual /(float)vidaMax;
+        barraVidas.value = (float)vidaActual /(float)vidaMax;
     }
 
     public void ActualizarNumBolasTexto(int numBolasActual, int numBolasMax)
