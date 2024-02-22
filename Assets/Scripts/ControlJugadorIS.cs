@@ -32,16 +32,13 @@ public class ControlJugadorIS : MonoBehaviour
 
     private ControlArma arma;
 
-    private bool superVelocidad;
-    private float multiplicadorVelocidad = 1.5f;
-
     private void Awake()
     {
         camara = Camera.main;
         fisica = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
         arma = GetComponent<ControlArma>();
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; // Oculta el cursor
     }
 
     // Start is called before the first frame update
@@ -66,17 +63,7 @@ public class ControlJugadorIS : MonoBehaviour
         // Obtener la dirección de movimiento
         Vector3 movimiento = transform.forward * movimientoInput.y + transform.right * movimientoInput.x;
 
-        // Aplicar movimiento al Rigidbody
-        if (superVelocidad)
-        {
-            fisica.AddForce(movimiento * velocidadMovimiento * multiplicadorVelocidad);
-
-        }
-        else
-        {
-            fisica.AddForce(movimiento * velocidadMovimiento);
-
-        }
+        fisica.AddForce(movimiento * velocidadMovimiento);
 
         // Rotar el personaje en función de la entrada de rotación
         transform.Rotate(Vector3.up * rotacionInput.x * velocidadRotacion);
@@ -114,12 +101,6 @@ public class ControlJugadorIS : MonoBehaviour
         if (arma.PuedeDisparar())
             arma.Disparar();
 
-    }
-
-    void OnSuperVelocidad()
-    {
-        if (!superVelocidad)
-            ActivarSuperVelocidad();
     }
 
     private bool PuedeSaltar()
@@ -165,18 +146,5 @@ public class ControlJugadorIS : MonoBehaviour
     {
         arma.municionActual = Mathf.Clamp(arma.municionActual + cantidadBolas, 0, arma.municionMax);
         ControlHUD.instancia.ActualizarNumBolasTexto(arma.municionActual, arma.municionMax);
-    }
-
-    private IEnumerator SuperVelocidadRoutine()
-    {
-        yield return new WaitForSeconds(10);
-        superVelocidad = false;
-    }
-
-    public void ActivarSuperVelocidad()
-    {
-        superVelocidad = true;
-        Debug.Log(superVelocidad);
-        StartCoroutine(SuperVelocidadRoutine());
     }
 }

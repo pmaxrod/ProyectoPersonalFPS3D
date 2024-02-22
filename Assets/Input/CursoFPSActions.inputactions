@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SuperVelocidad",
+                    "name": "Correr",
                     "type": "Button",
                     "id": "7de971b7-8203-46b7-b084-4da73875cbc6",
                     "expectedControlType": "Button",
@@ -286,11 +286,11 @@
                 {
                     "name": "",
                     "id": "304e51d4-1556-40dd-8370-f3cc539bdf04",
-                    "path": "<Keyboard>/v",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "SuperVelocidad",
+                    "action": "Correr",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
