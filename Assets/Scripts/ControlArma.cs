@@ -38,7 +38,10 @@ public class ControlArma : MonoBehaviour
     public void Disparar()
     {
         ultimoTiempoDisparo = Time.time;
-        municionActual--;
+
+        if (!municionInfinita)
+            municionActual--;
+
         //GameObject bola = Instantiate(bolaPrefab, puntoSalida.position, puntoSalida.rotation);
         GameObject bola = bolaPool.getObjeto();
 

@@ -16,7 +16,7 @@ public class ControlResistencia : MonoBehaviour
 
     public Slider barraResistencia;
 
-    private bool estaCorriendo = false;
+    public bool estaCorriendo = false;
 
     private void Start()
     {
@@ -39,17 +39,15 @@ public class ControlResistencia : MonoBehaviour
             UsarResistencia(usoResistenciaCorrer * Time.deltaTime);
             if (barraResistencia.value > 0)
                 controlJugador.velocidadMovimiento = velocidadCorrer;
-            else
-            {
-                estaCorriendo = false;
-            }
         }
         else // Regenerar resistencia cuando no se está corriendo
         {
+            estaCorriendo = false;
             controlJugador.velocidadMovimiento = velocidadAndar;
             RegenerarResistencia(regeneracionResistencia * Time.deltaTime);
         }
 
+        Debug.Log(controlJugador.velocidadMovimiento.ToString());
         // Actualizar la interfaz
         ActualizarBarraResistencia();
     }
