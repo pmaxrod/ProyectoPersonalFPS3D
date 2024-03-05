@@ -19,8 +19,11 @@ public class ControlHUD : MonoBehaviour
     [Header("Ventana Fin Juego")]
     public GameObject ventanaFinJuego;
     public TextMeshProUGUI resultadoTexto;
+    public TextMeshProUGUI puntuacionTextoFin;
 
     public static ControlHUD instancia;
+
+    private int puntuacion;
 
     private void Awake()
     {
@@ -41,6 +44,7 @@ public class ControlHUD : MonoBehaviour
     public void ActualizarPuntuacion(int puntuacion)
     {
         puntuacionTexto.text = puntuacion.ToString("00000");
+        this.puntuacion += puntuacion;
     }
 
 
@@ -59,6 +63,12 @@ public class ControlHUD : MonoBehaviour
         resultadoTexto.text = (ganado) ? "Has Ganado!!" : "Has Perdido!!";
         resultadoTexto.color = (ganado) ? Color.green : Color.red;
 
+        if (ganado)
+        {
+            puntuacionTextoFin.gameObject.SetActive(true);
+            puntuacionTextoFin.text = $"Puntuación: {puntuacion}";
+            puntuacionTextoFin.color = Color.green;
+        }
     }
 
     public void OnBotonMenu()
