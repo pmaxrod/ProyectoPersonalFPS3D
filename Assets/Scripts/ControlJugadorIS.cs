@@ -81,7 +81,7 @@ public class ControlJugadorIS : MonoBehaviour
             IncrementaNumBolas(arma.municionMax - arma.municionActual);
         }
 
-        if (PuedeSaltar())
+        if (PuedeSaltar() && numeroSaltos == 0)
         {
             puedeSaltar = true;
             numeroSaltos = 2;
@@ -113,7 +113,7 @@ public class ControlJugadorIS : MonoBehaviour
             fisica.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
             numeroSaltos--;
         }
-        if (numeroSaltos < 1)
+        if (numeroSaltos == 0)
         {
             puedeSaltar = false;
         }
