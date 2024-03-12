@@ -4918,7 +4918,7 @@ MonoBehaviour:
   vidasMax: 10
   velocidadMovimiento: 10
   velocidadRotacion: 1
-  fuerzaSalto: 7
+  fuerzaSalto: 10
   sensibilidadRaton: 3
   maxVistaX: 45
   minVistaX: -45
