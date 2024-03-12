@@ -31,6 +31,8 @@ public class ControlJugadorIS : MonoBehaviour
     private bool puedeSaltar = true;
 
     private ControlArma arma;
+    private PlayerInput playerInput;
+    private int numeroSaltos = 2;
 
     private void Awake()
     {
@@ -39,6 +41,7 @@ public class ControlJugadorIS : MonoBehaviour
         col = GetComponent<CapsuleCollider>();
         arma = GetComponent<ControlArma>();
         Cursor.lockState = CursorLockMode.Locked; // Oculta el cursor
+        playerInput = GetComponent<PlayerInput>();
     }
 
     // Start is called before the first frame update
@@ -73,6 +76,16 @@ public class ControlJugadorIS : MonoBehaviour
         rotacionX = Mathf.Clamp(rotacionX, minVistaX, maxVistaX);
         camara.transform.localRotation = Quaternion.Euler(-rotacionX, 0, 0);
 
+        if (arma.municionActual > arma.municionMax)
+        {
+            IncrementaNumBolas(arma.municionMax - arma.municionActual);
+        }
+
+        if (PuedeSaltar())
+        {
+            puedeSaltar = true;
+            numeroSaltos = 2;
+        }
     }
 
 
@@ -88,19 +101,40 @@ public class ControlJugadorIS : MonoBehaviour
 
     void OnJump()
     {
-        if (PuedeSaltar())
+        /* if (PuedeSaltar())
+         {
+             // Aplicar fuerza vertical para simular un salto
+             fisica.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+             puedeSaltar = false;
+         }*/
+        // Aplicar fuerza vertical para simular un salto
+        if (puedeSaltar)
         {
-            // Aplicar fuerza vertical para simular un salto
             fisica.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+            numeroSaltos--;
+        }
+        if (numeroSaltos < 1)
+        {
             puedeSaltar = false;
         }
+        Debug.Log(numeroSaltos.ToString());
     }
 
     void OnFire()
     {
+        Debug.Log("Is Pressed: " + playerInput.actions["Fire"].IsPressed());
+        Debug.Log("Was Pressed: " + playerInput.actions["Fire"].WasPressedThisFrame());
+        Debug.Log("Was Released: " + playerInput.actions["Fire"].WasReleasedThisFrame());
         if (arma.PuedeDisparar())
             arma.Disparar();
 
+    }
+    void OnRecargar()
+    {
+        if (arma.municionActual < arma.municionMax)
+        {
+            IncrementaNumBolas(arma.municionMax / 4);
+        }
     }
 
     private bool PuedeSaltar()

@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Recargar",
+                    "type": "Button",
+                    "id": "1663e1cc-281e-4854-97cd-0fae545b5502",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Correr",
                     "type": "Button",
                     "id": "7de971b7-8203-46b7-b084-4da73875cbc6",
@@ -291,6 +300,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Correr",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aed47f60-4647-455c-b6d2-9d93f894f4ff",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Recargar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
