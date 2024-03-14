@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ControlResistencia : MonoBehaviour
@@ -9,7 +10,7 @@ public class ControlResistencia : MonoBehaviour
     private float resistenciaActual;
     public float regeneracionResistencia = 5f;
     public float usoResistenciaCorrer = 10f;
-    public float velocidadCorrer = 10f;
+    public float velocidadCorrer = 15f;
     private float velocidadAndar;
 
     private ControlJugadorIS controlJugador;
@@ -17,6 +18,8 @@ public class ControlResistencia : MonoBehaviour
     public Slider barraResistencia;
 
     public bool estaCorriendo = false;
+
+    private PlayerInput playerInput;
 
     private void Start()
     {
@@ -26,6 +29,8 @@ public class ControlResistencia : MonoBehaviour
 
         // Pone el valor inicial de la barra de resistencia
         ActualizarBarraResistencia();
+
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void Update()
@@ -34,18 +39,19 @@ public class ControlResistencia : MonoBehaviour
         // estaCorriendo = Input.GetKey(KeyCode.LeftShift);
 
         // Usar resistencia al correr
-        if (estaCorriendo)
+        if (estaCorriendo && resistenciaActual > 0)
         {
+            controlJugador.velocidadMovimiento = velocidadCorrer;
             UsarResistencia(usoResistenciaCorrer * Time.deltaTime);
-            if (barraResistencia.value > 0)
-                controlJugador.velocidadMovimiento = velocidadCorrer;
         }
         else // Regenerar resistencia cuando no se está corriendo
         {
-            estaCorriendo = false;
             controlJugador.velocidadMovimiento = velocidadAndar;
             RegenerarResistencia(regeneracionResistencia * Time.deltaTime);
         }
+  
+        if (resistenciaActual <= 0)
+            estaCorriendo = false;
 
         Debug.Log(controlJugador.velocidadMovimiento.ToString());
         // Actualizar la interfaz
@@ -69,6 +75,13 @@ public class ControlResistencia : MonoBehaviour
 
     void OnCorrer()
     {
-        estaCorriendo = !estaCorriendo;
+        if (playerInput.actions["Correr"].WasPressedThisFrame())
+        {
+            estaCorriendo = true;
+        }
+        if (playerInput.actions["Correr"].WasReleasedThisFrame())
+        {
+            estaCorriendo = false;
+        }
     }
 }
