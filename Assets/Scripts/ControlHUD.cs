@@ -23,8 +23,6 @@ public class ControlHUD : MonoBehaviour
 
     public static ControlHUD instancia;
 
-    private int puntuacion;
-
     private void Awake()
     {
         instancia = this;  
@@ -43,10 +41,8 @@ public class ControlHUD : MonoBehaviour
 
     public void ActualizarPuntuacion(int puntuacion)
     {
-        puntuacionTexto.text = puntuacion.ToString("00000");
-        this.puntuacion += puntuacion;
+        puntuacionTexto.text = ControlJuego.instancia.puntuacionActual.ToString("00000");
     }
-
 
     public void CambiarEstadoVentanaPausa(bool pausa)
     {
@@ -66,7 +62,7 @@ public class ControlHUD : MonoBehaviour
         if (ganado)
         {
             puntuacionTextoFin.gameObject.SetActive(true);
-            puntuacionTextoFin.text = $"Puntuación: {puntuacion}";
+            puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
         }
     }

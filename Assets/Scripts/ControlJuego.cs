@@ -47,6 +47,7 @@ public class ControlJuego : MonoBehaviour
 
     public void PonerPuntuacion(int puntuacion)
     {
+        puntuacionActual += puntuacion;
         ControlHUD.instancia.ActualizarPuntuacion(puntuacionActual);
 
         // Para ganar por puntuación
