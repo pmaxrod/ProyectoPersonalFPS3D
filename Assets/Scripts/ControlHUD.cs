@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using BayatGames.SaveGameFree;
 
 public class ControlHUD : MonoBehaviour
 {
@@ -64,6 +65,15 @@ public class ControlHUD : MonoBehaviour
             puntuacionTextoFin.gameObject.SetActive(true);
             puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
+
+            if (SaveGame.Exists("puntuacion.fps")){
+                
+            }
+            else
+            {
+                SaveGame.Save<int>("puntuacion.fps", ControlJuego.instancia.puntuacionActual);
+
+            }
         }
     }
 

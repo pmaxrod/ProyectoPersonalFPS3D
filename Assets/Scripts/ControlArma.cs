@@ -1,3 +1,4 @@
+using BayatGames.SaveGameFree;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.Intrinsics;
@@ -24,6 +25,10 @@ public class ControlArma : MonoBehaviour
             esJugador = true;
 
         bolaPool = GetComponent<PoolObjetos>();
+
+        if (SaveGame.Exists("arma.fps"))
+            municionActual = SaveGame.Load<int>("arma.fps");
+        SaveGame.Save<int>("arma.fps", municionActual);
     }
 
     public bool PuedeDisparar()
@@ -32,7 +37,6 @@ public class ControlArma : MonoBehaviour
             if (municionActual > 0 || municionInfinita == true)
                 return true;
         return false;
-
     }
 
     public void Disparar()
