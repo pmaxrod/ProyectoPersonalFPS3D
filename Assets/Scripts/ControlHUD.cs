@@ -21,18 +21,28 @@ public class ControlHUD : MonoBehaviour
     public GameObject ventanaFinJuego;
     public TextMeshProUGUI resultadoTexto;
     public TextMeshProUGUI puntuacionTextoFin;
+    public TextMeshProUGUI puntuacionMaximaTexto;
 
     public static ControlHUD instancia;
 
+    private int puntuacionArchivo;
     private void Awake()
     {
-        instancia = this;  
+        instancia = this;
+
+        if (SaveGame.Exists("puntuacion.fps"))
+        {
+            puntuacionArchivo = SaveGame.Load<int>("puntuacion.fps");
+            Debug.Log(puntuacionArchivo);
+        }
+
+        puntuacionMaximaTexto.text = "Puntuación máxima: " + puntuacionArchivo;
     }
 
     public void ActualizaBarraVida(int vidaActual, int vidaMax)
     {
         //barraVidas.fillAmount = (float)vidaActual /(float)vidaMax;
-        barraVidas.value = (float)vidaActual /(float)vidaMax;
+        barraVidas.value = (float)vidaActual / (float)vidaMax;
     }
 
     public void ActualizarNumBolasTexto(int numBolasActual, int numBolasMax)
@@ -50,7 +60,7 @@ public class ControlHUD : MonoBehaviour
         ventanaPausa.SetActive(pausa);
     }
 
-    public void EstablecerVentanaFinJuego (bool ganado)
+    public void EstablecerVentanaFinJuego(bool ganado)
     {
         ventanaFinJuego.SetActive(true);
 
@@ -66,14 +76,12 @@ public class ControlHUD : MonoBehaviour
             puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
 
-            if (SaveGame.Exists("puntuacion.fps")){
-                
-            }
-            else
+            if (puntuacionArchivo < ControlJuego.instancia.puntuacionActual)
             {
                 SaveGame.Save<int>("puntuacion.fps", ControlJuego.instancia.puntuacionActual);
-
             }
+            Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
+
         }
     }
 
@@ -100,13 +108,13 @@ public class ControlHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
