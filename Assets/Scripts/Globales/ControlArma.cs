@@ -26,8 +26,9 @@ public class ControlArma : MonoBehaviour
 
         bolaPool = GetComponent<PoolObjetos>();
 
-        if (SaveGame.Exists("arma.fps"))
-            municionActual = SaveGame.Load<int>("arma.fps");
+        /*if (SaveGame.Exists("arma.fps"))
+            municionActual = SaveGame.Load<int>("arma.fps");*/
+		municionActual = ArchivosGuardados.instance.datosGuardados.municion;
     }
 
     public bool PuedeDisparar()

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DatosGuardados
 {
-    [SerializeField] private GameObject archivoGuardado;
-    [SerializeField] private double tiempoJugado;
-    [SerializeField] private float municion;
+    public GameObject archivoGuardado;
+    public double tiempoJugado;
+    public int municion;
 }
