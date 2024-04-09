@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using BayatGames.SaveGameFree;
+using System;
 
 public class ControlHUD : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ControlHUD : MonoBehaviour
     public TextMeshProUGUI numBolasTexto;
     //public Image barraVidas;
     public Slider barraVidas;
+    public TextMeshProUGUI tiempoJugadoTotal;
 
     [Header("Ventana de Pausa")]
     public GameObject ventanaPausa;
@@ -26,18 +28,13 @@ public class ControlHUD : MonoBehaviour
     public static ControlHUD instancia;
 
     private int puntuacionArchivo;
-	private double tiempoArchivo;
-	
+    private double tiempoArchivo;
+
     private void Awake()
     {
         instancia = this;
-
-        puntuacionArchivo = ArchivosGuardados.instance.datosGuardados.puntuacion;
-        tiempoArchivo = ArchivosGuardados.instance.datosGuardados.tiempoJugado;
-		
-        Debug.Log(puntuacionArchivo);
-      
-        puntuacionMaximaTexto.text = "Puntuación máxima: " + puntuacionArchivo;
+        puntuacionArchivo = 0;
+        tiempoArchivo = 0;
     }
 
     public void ActualizaBarraVida(int vidaActual, int vidaMax)
@@ -77,19 +74,20 @@ public class ControlHUD : MonoBehaviour
             puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
 
-				DatosGuardados datos = new DatosGuardados();
-				datos.tiempoJugado = tiempoArchivo + ControlJuego.instancia.tiempoJugado;
+            int puntos;
 
             if (puntuacionArchivo < ControlJuego.instancia.puntuacionActual)
             {
-				datos.puntuacion = ControlJuego.instancia.puntuacionActual;
+                puntos = ControlJuego.instancia.puntuacionActual;
             }
-			else
-			{
-				datos.puntuacion = puntuacionArchivo;				
-			}
+            else
+            {
+                puntos = puntuacionArchivo;
+            }
 
-            SaveGame.Save<DatosGuardados>("archivo.fps", datos);
+            DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
+
+            SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
             Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
 
         }
@@ -118,6 +116,17 @@ public class ControlHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(ArchivosGuardados.instance.datosGuardados);
+
+        tiempoArchivo = ArchivosGuardados.instance.datosGuardados.tiempoJugado;
+        puntuacionArchivo = ArchivosGuardados.instance.datosGuardados.puntuacion;
+
+        Debug.Log(puntuacionArchivo);
+
+        if (puntuacionMaximaTexto != null)
+            puntuacionMaximaTexto.text = "Puntuación máxima: " + puntuacionArchivo;
+        if (tiempoJugadoTotal != null)
+            tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempoArchivo);
 
     }
 
@@ -126,10 +135,4 @@ public class ControlHUD : MonoBehaviour
     {
 
     }
-
-
-
-
-
-
 }

@@ -37,7 +37,7 @@ public class ControlJuego : MonoBehaviour
         if(numEnemigos <= 0)
             GanarJuego();
 		
-		   if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.active)
+		   if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.activeSelf)
 			tiempoJugado += Time.deltaTime;
     }
 
