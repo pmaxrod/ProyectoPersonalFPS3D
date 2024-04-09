@@ -26,17 +26,18 @@ public class ControlHUD : MonoBehaviour
     public static ControlHUD instancia;
 
     private int puntuacionArchivo;
+	private double tiempoArchivo;
+	
     private void Awake()
     {
         instancia = this;
 
-        if (SaveGame.Exists("puntuacion.fps"))
-        {
-            puntuacionArchivo = SaveGame.Load<int>("puntuacion.fps");
-            Debug.Log(puntuacionArchivo);
-        }
-
-        puntuacionMaximaTexto.text = "PuntuaciÛn m·xima: " + puntuacionArchivo;
+        puntuacionArchivo = ArchivosGuardados.instance.datosGuardados.puntuacion;
+        tiempoArchivo = ArchivosGuardados.instance.datosGuardados.tiempoJugado;
+		
+        Debug.Log(puntuacionArchivo);
+      
+        puntuacionMaximaTexto.text = "Puntuaci√≥n m√°xima: " + puntuacionArchivo;
     }
 
     public void ActualizaBarraVida(int vidaActual, int vidaMax)
@@ -73,13 +74,22 @@ public class ControlHUD : MonoBehaviour
         if (ganado)
         {
             puntuacionTextoFin.gameObject.SetActive(true);
-            puntuacionTextoFin.text = $"PuntuaciÛn: {ControlJuego.instancia.puntuacionActual}";
+            puntuacionTextoFin.text = $"Puntuaci√≥n: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
+
+				DatosGuardados datos = new DatosGuardados();
+				datos.tiempoJugado = tiempoArchivo + ControlJuego.instancia.tiempoJugado;
 
             if (puntuacionArchivo < ControlJuego.instancia.puntuacionActual)
             {
-                SaveGame.Save<int>("puntuacion.fps", ControlJuego.instancia.puntuacionActual);
+				datos.puntuacion = ControlJuego.instancia.puntuacionActual;
             }
+			else
+			{
+				datos.puntuacion = puntuacionArchivo;				
+			}
+
+            SaveGame.Save<DatosGuardados>("archivo.fps", datos);
             Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
 
         }

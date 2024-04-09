@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DatosGuardados
 {
-    public GameObject archivoGuardado;
     public double tiempoJugado;
-    public int municion;
+    // public int municion;
+	public int puntuacion;
+	
 }

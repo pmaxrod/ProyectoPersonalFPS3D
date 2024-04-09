@@ -28,7 +28,7 @@ public class ControlArma : MonoBehaviour
 
         /*if (SaveGame.Exists("arma.fps"))
             municionActual = SaveGame.Load<int>("arma.fps");*/
-		municionActual = ArchivosGuardados.instance.datosGuardados.municion;
+		//municionActual = ArchivosGuardados.instance.datosGuardados.municion;
     }
 
     public bool PuedeDisparar()

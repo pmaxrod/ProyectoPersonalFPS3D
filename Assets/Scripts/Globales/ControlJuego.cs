@@ -9,12 +9,14 @@ public class ControlJuego : MonoBehaviour
     public int puntuacionParaGanar;
 
     public bool juegoPausado;
+	public double tiempoJugado;
 
     public static ControlJuego instancia;
 
     private void Awake()
     {
         instancia = this;
+		tiempoJugado = 0;
     }
 
     // Start is called before the first frame update
@@ -34,6 +36,9 @@ public class ControlJuego : MonoBehaviour
         Debug.Log(numEnemigos);
         if(numEnemigos <= 0)
             GanarJuego();
+		
+		   if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.active)
+			tiempoJugado += Time.deltaTime;
     }
 
     public void CambiarPausa()

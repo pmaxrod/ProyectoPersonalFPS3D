@@ -14,8 +14,8 @@ public class ArchivosGuardados : MonoBehaviour
     void Start()
     {
          if (SaveGame.Exists("archivo.fps")){
-            datosGuardados.tiempoJugado = SaveGame.Load<double>("archivo.fps");
-            datosGuardados.municion = SaveGame.Load<int>("archivo.fps");			 
+            datosGuardados = SaveGame.Load<DatosGuardados>("archivo.fps");
+            //datosGuardados.municion = SaveGame.Load<int>("archivo.fps");	 
 		 }
 		 
 		 instance = this;
