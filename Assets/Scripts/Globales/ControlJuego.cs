@@ -33,7 +33,7 @@ public class ControlJuego : MonoBehaviour
 
         //Calcular el número de enemigos
         int numEnemigos = GameObject.FindGameObjectsWithTag("Enemigo").Length;
-        Debug.Log(numEnemigos);
+        //Debug.Log(numEnemigos);
         if(numEnemigos <= 0)
             GanarJuego();
 		

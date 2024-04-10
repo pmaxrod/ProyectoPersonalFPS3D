@@ -53,7 +53,6 @@ public class ControlResistencia : MonoBehaviour
         if (resistenciaActual <= 0)
             estaCorriendo = false;
 
-        Debug.Log(controlJugador.velocidadMovimiento.ToString());
         // Actualizar la interfaz
         ActualizarBarraResistencia();
     }

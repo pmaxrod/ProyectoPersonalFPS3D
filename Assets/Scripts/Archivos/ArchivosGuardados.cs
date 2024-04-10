@@ -14,6 +14,8 @@ public class ArchivosGuardados : MonoBehaviour
         instance = this;
 
         datosGuardados = new DatosGuardados(0, 0);
+		
+		DontDestroyOnLoad(transform.gameObject);
     }
 
     // Start is called before the first frame update

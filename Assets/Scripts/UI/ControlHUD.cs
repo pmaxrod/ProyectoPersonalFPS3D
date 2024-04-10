@@ -33,8 +33,6 @@ public class ControlHUD : MonoBehaviour
     private void Awake()
     {
         instancia = this;
-        puntuacionArchivo = 0;
-        tiempoArchivo = 0;
     }
 
     public void ActualizaBarraVida(int vidaActual, int vidaMax)
@@ -85,6 +83,10 @@ public class ControlHUD : MonoBehaviour
                 puntos = puntuacionArchivo;
             }
 
+
+			if (puntuacionMaximaTexto != null)
+				puntuacionMaximaTexto.text = "Puntuación máxima: " + puntos;
+
             DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
 
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
@@ -116,23 +118,27 @@ public class ControlHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(ArchivosGuardados.instance.datosGuardados);
+        Debug.Log(ArchivosGuardados.instance.datosGuardados.tiempoJugado);
+        Debug.Log(ArchivosGuardados.instance.datosGuardados.puntuacion);
 
         tiempoArchivo = ArchivosGuardados.instance.datosGuardados.tiempoJugado;
         puntuacionArchivo = ArchivosGuardados.instance.datosGuardados.puntuacion;
 
-        Debug.Log(puntuacionArchivo);
-
-        if (puntuacionMaximaTexto != null)
-            puntuacionMaximaTexto.text = "Puntuación máxima: " + puntuacionArchivo;
-        if (tiempoJugadoTotal != null)
-            tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempoArchivo);
-
+        if (tiempoJugadoTotal != null){
+			TextoTiempoJugado();
+		}
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (tiempoJugadoTotal != null && tiempoArchivo == 0){
+            TextoTiempoJugado();
+		}
 
     }
+	
+	private void TextoTiempoJugado(){
+		tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempoArchivo);
+	}
 }

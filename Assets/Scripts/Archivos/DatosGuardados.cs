@@ -20,6 +20,6 @@ public class DatosGuardados
     {
         TimeSpan ts = TimeSpan.FromSeconds(tiempoJugado);
 
-        return String.Format("{0:d}", ts.ToString());
+        return String.Format("{0}:{1}:{2}", (int)ts.TotalHours, ts.Minutes, ts.Seconds);
     }
 }
