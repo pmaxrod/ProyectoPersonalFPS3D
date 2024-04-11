@@ -25,6 +25,9 @@ public class ControlHUD : MonoBehaviour
     public TextMeshProUGUI puntuacionTextoFin;
     public TextMeshProUGUI puntuacionMaximaTexto;
 
+    [Header("Ventana Borrar Datos")]
+    public GameObject ventanaBorrarDatos;
+	
     public static ControlHUD instancia;
 
     private int puntuacionArchivo;
@@ -33,6 +36,8 @@ public class ControlHUD : MonoBehaviour
     private void Awake()
     {
         instancia = this;
+		if (ventanaBorrarDatos != null)
+			ventanaBorrarDatos.SetActive(false);
     }
 
     public void ActualizaBarraVida(int vidaActual, int vidaMax)
@@ -114,6 +119,17 @@ public class ControlHUD : MonoBehaviour
     {
         Application.Quit();
     }
+	
+	public void BorrarDatos()
+	{
+		ventanaBorrarDatos.SetActive(true);
+	}
+
+	public void CerrarBorrarDatos()
+	{
+		ventanaBorrarDatos.SetActive(false);
+	}
+
 
     // Start is called before the first frame update
     void Start()
@@ -141,4 +157,5 @@ public class ControlHUD : MonoBehaviour
 	private void TextoTiempoJugado(){
 		tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempoArchivo);
 	}
+	
 }
