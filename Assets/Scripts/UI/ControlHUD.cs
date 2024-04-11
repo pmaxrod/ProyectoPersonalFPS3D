@@ -134,6 +134,7 @@ public class ControlHUD : MonoBehaviour
     {
         ArchivosGuardados.instance.BorrarDatos();
         CerrarBorrarDatos();
+        TextoTiempoJugado(0);
     }
 
     // Start is called before the first frame update
@@ -146,21 +147,17 @@ public class ControlHUD : MonoBehaviour
         puntuacionArchivo = ArchivosGuardados.instance.datosGuardados.puntuacion;
 
         if (tiempoJugadoTotal != null){
-			TextoTiempoJugado();
+			TextoTiempoJugado(tiempoArchivo);
 		}
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (tiempoJugadoTotal != null && tiempoArchivo == 0){
-            TextoTiempoJugado();
-		}
-
     }
 	
-	private void TextoTiempoJugado(){
-		tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempoArchivo);
+	private void TextoTiempoJugado(double tiempo){
+		tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempo);
 	}
 	
 }
