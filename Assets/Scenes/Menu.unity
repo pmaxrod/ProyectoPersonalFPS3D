@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028355, g: 0.22571374, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -340,7 +340,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &243824534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -448,8 +448,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1304936876}
-        m_TargetAssemblyTypeName: ArchivosGuardados, Assembly-CSharp
+      - m_Target: {fileID: 2063131195}
+        m_TargetAssemblyTypeName: ControlHUD, Assembly-CSharp
         m_MethodName: BorrarDatos
         m_Mode: 1
         m_Arguments:
@@ -849,9 +849,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1304936876}
-        m_TargetAssemblyTypeName: ArchivosGuardados, Assembly-CSharp
-        m_MethodName: BorrarDatos
+      - m_Target: {fileID: 2063131195}
+        m_TargetAssemblyTypeName: ControlHUD, Assembly-CSharp
+        m_MethodName: AbrirBorrarDatos
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1507,7 +1507,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2063131195}
         m_TargetAssemblyTypeName: ControlHUD, Assembly-CSharp
-        m_MethodName: OnBotonEmpezar
+        m_MethodName: CerrarBorrarDatos
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

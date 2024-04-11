@@ -34,6 +34,8 @@ public class ControlJugadorIS : MonoBehaviour
     private PlayerInput playerInput;
     private int numeroSaltos = 2;
 
+    public static ControlJugadorIS instance;
+
     private void Awake()
     {
         camara = Camera.main;
@@ -42,6 +44,7 @@ public class ControlJugadorIS : MonoBehaviour
         arma = GetComponent<ControlArma>();
         Cursor.lockState = CursorLockMode.Locked; // Oculta el cursor
         playerInput = GetComponent<PlayerInput>();
+        instance = this;
     }
 
     // Start is called before the first frame update

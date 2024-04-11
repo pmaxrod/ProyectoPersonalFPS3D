@@ -43,7 +43,8 @@ public class ControlHUD : MonoBehaviour
     public void ActualizaBarraVida(int vidaActual, int vidaMax)
     {
         //barraVidas.fillAmount = (float)vidaActual /(float)vidaMax;
-        barraVidas.value = (float)vidaActual / (float)vidaMax;
+        //barraVidas.value = (float)vidaActual / (float)vidaMax;
+        barraVidas.value = (float)vidaActual;
     }
 
     public void ActualizarNumBolasTexto(int numBolasActual, int numBolasMax)
@@ -76,28 +77,26 @@ public class ControlHUD : MonoBehaviour
             puntuacionTextoFin.gameObject.SetActive(true);
             puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
-
-            int puntos;
-
-            if (puntuacionArchivo < ControlJuego.instancia.puntuacionActual)
-            {
-                puntos = ControlJuego.instancia.puntuacionActual;
-            }
-            else
-            {
-                puntos = puntuacionArchivo;
-            }
-
-
-			if (puntuacionMaximaTexto != null)
-				puntuacionMaximaTexto.text = "Puntuación máxima: " + puntos;
-
-            DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
-
-            SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
-            Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
-
         }
+        int puntos;
+
+        if (puntuacionArchivo < ControlJuego.instancia.puntuacionActual && ganado)
+        {
+            puntos = ControlJuego.instancia.puntuacionActual;
+        }
+        else
+        {
+            puntos = puntuacionArchivo;
+        }
+
+        if (puntuacionMaximaTexto != null)
+            puntuacionMaximaTexto.text = "Puntuación máxima: " + puntos;
+
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
+
+        SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
+        Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
+
     }
 
     public void OnBotonMenu()
@@ -120,7 +119,7 @@ public class ControlHUD : MonoBehaviour
         Application.Quit();
     }
 	
-	public void BorrarDatos()
+	public void AbrirBorrarDatos()
 	{
 		ventanaBorrarDatos.SetActive(true);
 	}
@@ -130,6 +129,12 @@ public class ControlHUD : MonoBehaviour
 		ventanaBorrarDatos.SetActive(false);
 	}
 
+
+    public void BorrarDatos()
+    {
+        ArchivosGuardados.instance.BorrarDatos();
+        CerrarBorrarDatos();
+    }
 
     // Start is called before the first frame update
     void Start()

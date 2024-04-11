@@ -3026,8 +3026,8 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
-  m_WholeNumbers: 0
+  m_MaxValue: 10
+  m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3095,6 +3095,7 @@ MonoBehaviour:
   resultadoTexto: {fileID: 1045991498}
   puntuacionTextoFin: {fileID: 735420152}
   puntuacionMaximaTexto: {fileID: 1581734166}
+  ventanaBorrarDatos: {fileID: 0}
 --- !u!114 &1182985229
 MonoBehaviour:
   m_ObjectHideFlags: 0
