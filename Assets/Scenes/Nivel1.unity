@@ -3090,6 +3090,7 @@ MonoBehaviour:
   numBolasTexto: {fileID: 1773841456}
   barraVidas: {fileID: 1092580252}
   tiempoJugadoTotal: {fileID: 0}
+  botonCargarPartida: {fileID: 0}
   ventanaPausa: {fileID: 652520727}
   ventanaFinJuego: {fileID: 1562430044}
   resultadoTexto: {fileID: 1045991498}

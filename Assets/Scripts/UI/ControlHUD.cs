@@ -109,7 +109,10 @@ public class ControlHUD : MonoBehaviour
     {
         DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlArma.instance.municionActual,
         ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
+
         datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
+        datos.enemigos = ControlJuego.instancia.enemigos;
+        datos.objetos = ControlJuego.instancia.objetos;
 
         Debug.Log(datos.tiempoJugadoPartida);
 

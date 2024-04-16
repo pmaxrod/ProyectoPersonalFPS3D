@@ -9,4 +9,7 @@ public class Constantes
 
     public static int MUNICION_INICIAL = 50;
     public static Vector3 POSICION_INICIAL = new Vector3(0, 2.08f, 0);
+
+    public static string ETIQUETA_ENEMIGO = "Enemigo";
+    public static string ETIQUETA_OBJETO = "Objeto";
 }

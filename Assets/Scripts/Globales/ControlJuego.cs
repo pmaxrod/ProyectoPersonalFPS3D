@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ControlJuego : MonoBehaviour
@@ -11,7 +12,10 @@ public class ControlJuego : MonoBehaviour
     public bool juegoPausado;
 	public double tiempoJugado;
 
+    public List<GameObject> enemigos, objetos;
+
     public static ControlJuego instancia;
+
 
     private void Awake()
     {
@@ -19,6 +23,9 @@ public class ControlJuego : MonoBehaviour
         //tiempoJugado = Constantes.TIEMPO_PARTIDA > 0 ? Constantes.TIEMPO_PARTIDA : 0;
         tiempoJugado = ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida > 0 ? ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida : 0;
         puntuacionActual = tiempoJugado > 0 ? ArchivosGuardados.instance.datosGuardados.puntuacion : 0;
+
+        enemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList();
+        objetos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_OBJETO).ToList();
     }
 
     // Start is called before the first frame update

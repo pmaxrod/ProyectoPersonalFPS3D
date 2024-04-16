@@ -31,6 +31,11 @@ public class ControlEnemigo : MonoBehaviour
         objetivo = FindObjectOfType<ControlJugadorIS>();
         //Cada medio segundo repite el cálculo de la lista de caminos
         InvokeRepeating("ActualizarCaminos", 0.0f, 0.5f);
+
+        if (!ControlJuego.instancia.enemigos.Contains(gameObject))
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -69,7 +74,11 @@ public class ControlEnemigo : MonoBehaviour
         ControlJuego.instancia.PonerPuntuacion(puntuacion);
 
         if (vidasActual <= 0)
+        {
             Destroy(gameObject);
+            
+            ControlJuego.instancia.enemigos.Remove(gameObject);
+        }
     }
 
     private void PerseguirObjetivo()

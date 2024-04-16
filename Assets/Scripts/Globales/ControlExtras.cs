@@ -23,6 +23,7 @@ public class ControlExtras : MonoBehaviour
             {
                 case TipoExtra.Vida:
                     jugador.IncrementaVida(cantidad);
+                    ControlJuego.instancia.objetos.Remove(gameObject);
                     break;
                 case TipoExtra.Bolas:
                     jugador.IncrementaNumBolas(cantidad);
@@ -35,7 +36,11 @@ public class ControlExtras : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (!ControlJuego.instancia.objetos.Contains(gameObject))
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     // Update is called once per frame
