@@ -28,15 +28,19 @@ public class ArchivosGuardados : MonoBehaviour
         }
         else
         {
-            datosGuardados.tiempoJugadoTotal = 0;
-            datosGuardados.puntuacion = 0;
-            datosGuardados.municion = Constantes.MUNICION_INICIAL;
-            datosGuardados.posicion = Constantes.POSICION_INICIAL;
-            datosGuardados.rotacion = new Quaternion(0,0,0,0);
-            datosGuardados.tiempoJugadoPartida = 0;
-
+            // datosGuardados.tiempoJugadoTotal = 0;
+            //datosGuardados.puntuacion = 0;
+            //datosGuardados.municion = Constantes.MUNICION_INICIAL;
+            //datosGuardados.posicion = Constantes.POSICION_INICIAL;
+            //datosGuardados.rotacion = new Quaternion(0,0,0,0);
+            //datosGuardados.tiempoJugadoPartida = 0;
+            // datosGuardados.enemigos = new List<GameObject>();
+            //datosGuardados.objetos = new List<GameObject>();
+            
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datosGuardados);
         }
+
+        Debug.Log(datosGuardados.ToString());
     }
 
     // Update is called once per frame
@@ -48,6 +52,7 @@ public class ArchivosGuardados : MonoBehaviour
     {
         if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA))
             datosGuardados = SaveGame.Load<DatosGuardados>(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
+        Debug.Log(datosGuardados.ToString());
     }
 
     public void BorrarArchivo(string archivo)
