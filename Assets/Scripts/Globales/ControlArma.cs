@@ -11,13 +11,14 @@ public class ControlArma : MonoBehaviour
     private PoolObjetos bolaPool;
     public Transform puntoSalida;
     public int municionActual = 10;
-    public int municionMax = 50;
+    public int municionMax = Constantes.MUNICION_INICIAL;
     public bool municionInfinita = false;
     public float velocidadBola = 10;
     public float frecuenciaDisparo = 0.2f;
     private float ultimoTiempoDisparo;
     private bool esJugador;
 
+    public static ControlArma instance;
     private void Awake()
     {
         //Soy el jugador??
@@ -26,9 +27,9 @@ public class ControlArma : MonoBehaviour
 
         bolaPool = GetComponent<PoolObjetos>();
 
-        /*if (SaveGame.Exists("arma.fps"))
-            municionActual = SaveGame.Load<int>("arma.fps");*/
-		//municionActual = ArchivosGuardados.instance.datosGuardados.municion;
+        instance = this;
+
+        municionActual = ArchivosGuardados.instance.datosGuardados.municion;
     }
 
     public bool PuedeDisparar()

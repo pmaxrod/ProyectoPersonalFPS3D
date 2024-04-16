@@ -16,7 +16,8 @@ public class ControlJuego : MonoBehaviour
     private void Awake()
     {
         instancia = this;
-		tiempoJugado = 0;
+		tiempoJugado = Constantes.TIEMPO_PARTIDA > 0 ? Constantes.TIEMPO_PARTIDA : 0;
+        puntuacionActual = tiempoJugado > 0 ? ArchivosGuardados.instance.datosGuardados.puntuacion : 0;
     }
 
     // Start is called before the first frame update
@@ -37,8 +38,10 @@ public class ControlJuego : MonoBehaviour
         if(numEnemigos <= 0)
             GanarJuego();
 		
-		   if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.activeSelf)
-			tiempoJugado += Time.deltaTime;
+		if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.activeSelf)
+        {
+            tiempoJugado += Time.deltaTime;
+        }
     }
 
     public void CambiarPausa()

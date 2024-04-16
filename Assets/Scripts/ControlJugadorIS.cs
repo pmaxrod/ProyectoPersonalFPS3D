@@ -45,6 +45,9 @@ public class ControlJugadorIS : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked; // Oculta el cursor
         playerInput = GetComponent<PlayerInput>();
         instance = this;
+
+        gameObject.transform.position = ArchivosGuardados.instance.datosGuardados.posicion;
+        gameObject.transform.rotation = ArchivosGuardados.instance.datosGuardados.rotacion;
     }
 
     // Start is called before the first frame update

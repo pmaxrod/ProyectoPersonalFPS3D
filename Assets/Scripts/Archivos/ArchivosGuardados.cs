@@ -13,9 +13,9 @@ public class ArchivosGuardados : MonoBehaviour
     {
         instance = this;
 
-        datosGuardados = new DatosGuardados(0, 0);
-		
-		DontDestroyOnLoad(transform.gameObject);
+        datosGuardados = new DatosGuardados();
+
+        DontDestroyOnLoad(transform.gameObject);
     }
 
     // Start is called before the first frame update
@@ -30,6 +30,10 @@ public class ArchivosGuardados : MonoBehaviour
         {
             datosGuardados.tiempoJugado = 0;
             datosGuardados.puntuacion = 0;
+            datosGuardados.municion = Constantes.MUNICION_INICIAL;
+            datosGuardados.posicion = Constantes.POSICION_INICIAL;
+            datosGuardados.rotacion = new Quaternion(0,0,0,0);
+
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datosGuardados);
         }
     }
@@ -39,10 +43,24 @@ public class ArchivosGuardados : MonoBehaviour
     {
 
     }
-
-    public void BorrarDatos()
+    public void CargarDatos()
     {
-        if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO))
-            SaveGame.Delete(Constantes.NOMBRE_ARCHIVO_GUARDADO);
+        if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA))
+            datosGuardados = SaveGame.Load<DatosGuardados>(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
+    }
+
+    public void BorrarArchivo(string archivo)
+    {
+        if (SaveGame.Exists(archivo))
+            SaveGame.Delete(archivo);
+        else
+        {
+            Debug.Log($"El archivo {archivo} no existe. Compruebe que el nombre esté bien escrito.");
+        }
+    }
+
+    public void BorrarArchivoCarga()
+    {
+        BorrarArchivo(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
     }
 }
