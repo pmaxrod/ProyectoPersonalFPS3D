@@ -107,10 +107,11 @@ public class ControlHUD : MonoBehaviour
 
     public void OnBotonMenu()
     {
-        DatosGuardados datos = new DatosGuardados(ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlArma.instance.municionActual,
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlArma.instance.municionActual,
         ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
-        //datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
-        Constantes.TIEMPO_PARTIDA = ControlJuego.instancia.tiempoJugado;
+        datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
+
+        Debug.Log(datos.tiempoJugadoPartida);
 
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA, datos);
 
@@ -166,10 +167,7 @@ public class ControlHUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(ArchivosGuardados.instance.datosGuardados.tiempoJugado);
-        Debug.Log(ArchivosGuardados.instance.datosGuardados.puntuacion);
-
-        tiempoArchivo = ArchivosGuardados.instance.datosGuardados.tiempoJugado;
+        tiempoArchivo = ArchivosGuardados.instance.datosGuardados.tiempoJugadoTotal;
         puntuacionArchivo = ArchivosGuardados.instance.datosGuardados.puntuacion;
 
         if (tiempoJugadoTotal != null)

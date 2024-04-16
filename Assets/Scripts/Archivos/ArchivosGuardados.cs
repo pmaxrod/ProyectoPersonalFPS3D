@@ -28,11 +28,12 @@ public class ArchivosGuardados : MonoBehaviour
         }
         else
         {
-            datosGuardados.tiempoJugado = 0;
+            datosGuardados.tiempoJugadoTotal = 0;
             datosGuardados.puntuacion = 0;
             datosGuardados.municion = Constantes.MUNICION_INICIAL;
             datosGuardados.posicion = Constantes.POSICION_INICIAL;
             datosGuardados.rotacion = new Quaternion(0,0,0,0);
+            datosGuardados.tiempoJugadoPartida = 0;
 
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datosGuardados);
         }
