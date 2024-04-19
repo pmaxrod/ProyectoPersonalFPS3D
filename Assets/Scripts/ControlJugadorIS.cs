@@ -181,7 +181,6 @@ public class ControlJugadorIS : MonoBehaviour
     {
         vidasActual = Mathf.Clamp(vidasActual + cantidadVida, 0, vidasMax);
         ControlHUD.instancia.ActualizaBarraVida(vidasActual, vidasMax);
-		ControlJuego.instancia.objetos.Remove(gameObject);
     }
 
     public void IncrementaNumBolas(int cantidadBolas)

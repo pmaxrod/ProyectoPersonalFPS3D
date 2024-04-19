@@ -8,15 +8,19 @@ public class ArchivosGuardados : MonoBehaviour
 {
     public DatosGuardados datosGuardados;
 
-    public static ArchivosGuardados instance;
+	public bool archivoCargado = false;
+    
+	public static ArchivosGuardados instance;
 
     private void Awake()
     {
-        instance = this;
 
         datosGuardados = new DatosGuardados();
 
-        DontDestroyOnLoad(transform.gameObject);
+		if (instance == null)
+			DontDestroyOnLoad(transform.gameObject);
+		
+        instance = this;
     }
 
     // Start is called before the first frame update
@@ -40,25 +44,28 @@ public class ArchivosGuardados : MonoBehaviour
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datosGuardados);
         }
         
-		DebugDatosGuardados();
+		DebugDatosGuardados(datosGuardados);
     }
 
     // Update is called once per frame
     void Update()
     {
-		bool datosLeidos = false;
-		if (ControlJuego.instancia != null && !datosLeidos && !SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA)){
+		/*bool datosLeidos = false;
+		if (ControlJuego.instancia != null && !datosLeidos && !archivoCargado){
 			datosGuardados.enemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList();
             datosGuardados.objetos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_OBJETO).ToList();
 			datosLeidos = true;
-		}
+		}*/
     }
 	
     public void CargarDatos()
     {
-        if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA))
+        if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA)){
             datosGuardados = SaveGame.Load<DatosGuardados>(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
-    	DebugDatosGuardados();
+			archivoCargado = true;
+
+			DebugDatosGuardados(datosGuardados);
+		}
 	}
 
     public void BorrarArchivo(string archivo)
@@ -76,7 +83,7 @@ public class ArchivosGuardados : MonoBehaviour
         BorrarArchivo(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
     }
 	
-	public void DebugDatosGuardados(){
+	public void DebugDatosGuardados(DatosGuardados datosGuardados){
 		Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
         Debug.Log("Puntuacion: " + datosGuardados.puntuacion);
         Debug.Log("Municion: " + datosGuardados.municion);

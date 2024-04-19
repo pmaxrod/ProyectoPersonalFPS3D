@@ -28,6 +28,7 @@ public class ControlExtras : MonoBehaviour
                     jugador.IncrementaNumBolas(cantidad);
                     break;
             }
+			ControlJuego.instancia.objetos.Remove(gameObject);
             Destroy(gameObject);
         }
             

@@ -24,14 +24,16 @@ public class ControlJuego : MonoBehaviour
         tiempoJugado = ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida > 0 ? ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida : 0;
         puntuacionActual = tiempoJugado > 0 ? ArchivosGuardados.instance.datosGuardados.puntuacion : 0;
 
-		enemigos = ArchivosGuardados.instance.datosGuardados.enemigos;
-		objetos = ArchivosGuardados.instance.datosGuardados.objetos;
-    }
+		enemigos = ArchivosGuardados.instance.archivoCargado ? ArchivosGuardados.instance.datosGuardados.enemigos 
+		: GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList();
+		objetos = ArchivosGuardados.instance.archivoCargado ?  ArchivosGuardados.instance.datosGuardados.objetos
+		: GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_OBJETO).ToList();
+     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
