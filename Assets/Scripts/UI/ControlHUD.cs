@@ -99,7 +99,7 @@ public class ControlHUD : MonoBehaviour
         DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
 
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
-		
+
 		ArchivosGuardados.instance.BorrarArchivoCarga();
 
         //Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
@@ -111,9 +111,9 @@ public class ControlHUD : MonoBehaviour
         DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlResistencia.instance.resistenciaActual, ControlArma.instance.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
 
         datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
-        datos.enemigos = ControlJuego.instancia.enemigos;
+        //datos.enemigos = ControlJuego.instancia.enemigos;
         datos.objetos = ControlJuego.instancia.objetos;
-	
+
         ArchivosGuardados.instance.DebugDatosGuardados(datos);
 		Debug.Log(datos.tiempoJugadoPartida);
 

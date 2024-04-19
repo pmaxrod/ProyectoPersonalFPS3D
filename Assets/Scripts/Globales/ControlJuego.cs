@@ -12,8 +12,7 @@ public class ControlJuego : MonoBehaviour
     public bool juegoPausado;
 	public double tiempoJugado;
 
-    public List<GameObject> enemigos, objetos;
-
+    public List<Objeto> objetos;
     public static ControlJuego instancia;
 
 
@@ -24,16 +23,18 @@ public class ControlJuego : MonoBehaviour
         tiempoJugado = ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida > 0 ? ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida : 0;
         puntuacionActual = tiempoJugado > 0 ? ArchivosGuardados.instance.datosGuardados.puntuacion : 0;
 
-		enemigos = ArchivosGuardados.instance.archivoCargado ? ArchivosGuardados.instance.datosGuardados.enemigos 
-		: GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList();
-		objetos = ArchivosGuardados.instance.archivoCargado ?  ArchivosGuardados.instance.datosGuardados.objetos
-		: GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_OBJETO).ToList();
+        if (ArchivosGuardados.instance.archivoCargado){
+            objetos =  ArchivosGuardados.instance.datosGuardados.objetos;
+        }
+        else{
+            objetos = new List<Objeto>();
+        }
      }
 
     // Start is called before the first frame update
     void Start()
     {
-       
+
     }
 
     // Update is called once per frame
@@ -42,12 +43,12 @@ public class ControlJuego : MonoBehaviour
         if (Input.GetButtonDown("Cancel"))
             CambiarPausa();
 
-        //Calcular el número de enemigos
-        int numEnemigos = enemigos.Count;
+        //Calcular el nï¿½mero de enemigos
+        int numEnemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList().Count;
         //Debug.Log(numEnemigos);
         if(numEnemigos <= 0)
             GanarJuego();
-		
+
 		if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.activeSelf)
         {
             tiempoJugado += Time.deltaTime;
@@ -58,7 +59,7 @@ public class ControlJuego : MonoBehaviour
     {
         juegoPausado = !juegoPausado;
         Time.timeScale = (juegoPausado) ? 0.0f : 1f;
-        Cursor.lockState = (juegoPausado) ? CursorLockMode.None : CursorLockMode.Locked; 
+        Cursor.lockState = (juegoPausado) ? CursorLockMode.None : CursorLockMode.Locked;
 
         ControlHUD.instancia.CambiarEstadoVentanaPausa(juegoPausado);
     }
@@ -68,7 +69,7 @@ public class ControlJuego : MonoBehaviour
         puntuacionActual += puntuacion;
         ControlHUD.instancia.ActualizarPuntuacion(puntuacionActual);
 
-        // Para ganar por puntuación
+        // Para ganar por puntuaciï¿½n
         //if (puntuacionActual >= puntuacionParaGanar)
         //    GanarJuego();
     }

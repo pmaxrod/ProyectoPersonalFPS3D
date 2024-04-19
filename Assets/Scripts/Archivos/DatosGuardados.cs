@@ -15,22 +15,22 @@ public class DatosGuardados
     public Quaternion rotacion;
     public double tiempoJugadoPartida;
 
-    public List<GameObject> enemigos;
-    public List<GameObject> objetos;
+    public List<Objeto> enemigos;
+    public List<Objeto> objetos;
 
     public DatosGuardados()
     {
         this.tiempoJugadoTotal = 0;
         this.puntuacion = 0;
-		
+
 		this.vida = Constantes.VIDA_INICIAL;
 		this.resistencia = Constantes.RESISTENCIA_INICIAL;
         this.municion = Constantes.MUNICION_INICIAL;
         this.posicion = Constantes.POSICION_INICIAL;
         this.rotacion = new Quaternion();
         this.tiempoJugadoPartida = 0;
-        enemigos = new List<GameObject>();
-        objetos = new List<GameObject>();
+        enemigos = new List<Objeto>();
+        objetos = new List<Objeto>();
     }
 
     public DatosGuardados(double tiempoJugadoTotal, int puntuacion)
@@ -44,10 +44,10 @@ public class DatosGuardados
         this.posicion = new Vector3(0, 0, 0);
         this.rotacion = new Quaternion();
         this.tiempoJugadoPartida = 0;
-        enemigos = new List<GameObject>();
-        objetos = new List<GameObject>();
+        enemigos = new List<Objeto>();
+        objetos = new List<Objeto>();
     }
-	
+
     public DatosGuardados(double tiempoJugadoTotal, int puntuacion, int vida, float resistencia, int municion, Vector3 posicion, Quaternion rotacion)
     {
         this.tiempoJugadoTotal = tiempoJugadoTotal;
@@ -58,8 +58,8 @@ public class DatosGuardados
         this.posicion = posicion;
         this.rotacion = rotacion;
         this.tiempoJugadoPartida = 0;
-        enemigos = new List<GameObject>();
-        objetos = new List<GameObject>();
+        enemigos = new List<Objeto>();
+        objetos = new List<Objeto>();
     }
 
     public string TiempoFormateado(double tiempoJugadoTotal)

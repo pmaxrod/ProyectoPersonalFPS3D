@@ -7,7 +7,7 @@ using System.Linq;
 
 public class ControlEnemigo : MonoBehaviour
 {
-    [Header("Estadísticas")]
+    [Header("Estadï¿½sticas")]
     public int vidasActual;
     public int vidasMax;
     public int puntuacionEnemigo;
@@ -29,12 +29,20 @@ public class ControlEnemigo : MonoBehaviour
     {
         arma = GetComponent<ControlArma>();
         objetivo = FindObjectOfType<ControlJugadorIS>();
-        //Cada medio segundo repite el cálculo de la lista de caminos
+        //Cada medio segundo repite el cï¿½lculo de la lista de caminos
         InvokeRepeating("ActualizarCaminos", 0.0f, 0.5f);
 
-        if (!ControlJuego.instancia.enemigos.Contains(gameObject))
+        /*if (!ControlJuego.instancia.objetos.Contains(gameObject))
         {
             Destroy(gameObject);
+        }*/
+        if(!ArchivosGuardados.instance.archivoCargado)
+            ControlJuego.instancia.objetos.Add(new Objeto(gameObject.GetInstanceID().ToString(), gameObject.transform.position, gameObject.transform.rotation));
+        else{
+            Objeto objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id == gameObject.GetInstanceID().ToString());
+
+            gameObject.transform.position = objeto.GetPosicion();
+            gameObject.transform.rotation = objeto.GetRotacion();
         }
     }
 
@@ -57,7 +65,7 @@ public class ControlEnemigo : MonoBehaviour
             if (arma.PuedeDisparar())
                 arma.Disparar();
         }
-        // Rota al enemigo para que dispare en dirección al jugador
+        // Rota al enemigo para que dispare en direcciï¿½n al jugador
         Vector3 direccion = (objetivo.transform.position - transform.position).normalized;
         float angulo = Mathf.Atan2(direccion.x, direccion.z) * Mathf.Rad2Deg;
         transform.eulerAngles = Vector3.up * angulo;
@@ -75,8 +83,8 @@ public class ControlEnemigo : MonoBehaviour
 
         if (vidasActual <= 0)
         {
-            ControlJuego.instancia.enemigos.Remove(gameObject);
-            Destroy(gameObject);            
+            //ControlJuego.instancia.objetos.Remove(gameObject);
+            Destroy(gameObject);
         }
     }
 

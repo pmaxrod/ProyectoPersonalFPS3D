@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class ControlArma : MonoBehaviour
 {
-    [Header("Configuración munición")]
+    [Header("Configuraciï¿½n municiï¿½n")]
     //public GameObject bolaPrefab;
     private PoolObjetos bolaPool;
     public Transform puntoSalida;
-    public int municionActual = 10;
+    public int municionActual;
     public int municionMax = Constantes.MUNICION_INICIAL;
     public bool municionInfinita = false;
     public float velocidadBola = 10;
