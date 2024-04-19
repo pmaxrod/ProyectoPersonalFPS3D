@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ControlResistencia : MonoBehaviour
 {
     public float resistenciaMax = 100f;
-    private float resistenciaActual;
+    public float resistenciaActual;
     public float regeneracionResistencia = 5f;
     public float usoResistenciaCorrer = 10f;
     public float velocidadCorrer = 15f;
@@ -20,17 +20,20 @@ public class ControlResistencia : MonoBehaviour
     public bool estaCorriendo = false;
 
     private PlayerInput playerInput;
+	
+	public static ControlResistencia instance;
 
     private void Start()
     {
         controlJugador = GetComponent<ControlJugadorIS>();
         velocidadAndar = controlJugador.velocidadMovimiento;
-        resistenciaActual = resistenciaMax;
+        resistenciaActual = ArchivosGuardados.instance.datosGuardados.resistencia;
 
         // Pone el valor inicial de la barra de resistencia
         ActualizarBarraResistencia();
 
         playerInput = GetComponent<PlayerInput>();
+		instance = this;
     }
 
     private void Update()

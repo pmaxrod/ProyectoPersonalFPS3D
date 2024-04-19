@@ -48,6 +48,7 @@ public class ControlJugadorIS : MonoBehaviour
 
         gameObject.transform.position = ArchivosGuardados.instance.datosGuardados.posicion;
         gameObject.transform.rotation = ArchivosGuardados.instance.datosGuardados.rotacion;
+		vidasActual = ArchivosGuardados.instance.datosGuardados.vida;
     }
 
     // Start is called before the first frame update
@@ -123,14 +124,14 @@ public class ControlJugadorIS : MonoBehaviour
         {
             puedeSaltar = false;
         }
-        Debug.Log(numeroSaltos.ToString());
+        //Debug.Log(numeroSaltos.ToString());
     }
 
     void OnFire()
     {
-        Debug.Log("Is Pressed: " + playerInput.actions["Fire"].IsPressed());
-        Debug.Log("Was Pressed: " + playerInput.actions["Fire"].WasPressedThisFrame());
-        Debug.Log("Was Released: " + playerInput.actions["Fire"].WasReleasedThisFrame());
+        //Debug.Log("Is Pressed: " + playerInput.actions["Fire"].IsPressed());
+        //Debug.Log("Was Pressed: " + playerInput.actions["Fire"].WasPressedThisFrame());
+        //Debug.Log("Was Released: " + playerInput.actions["Fire"].WasReleasedThisFrame());
         if (arma.PuedeDisparar())
             arma.Disparar();
 
@@ -180,6 +181,7 @@ public class ControlJugadorIS : MonoBehaviour
     {
         vidasActual = Mathf.Clamp(vidasActual + cantidadVida, 0, vidasMax);
         ControlHUD.instancia.ActualizaBarraVida(vidasActual, vidasMax);
+		ControlJuego.instancia.objetos.Remove(gameObject);
     }
 
     public void IncrementaNumBolas(int cantidadBolas)

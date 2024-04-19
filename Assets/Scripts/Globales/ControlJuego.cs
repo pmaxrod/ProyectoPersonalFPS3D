@@ -24,8 +24,8 @@ public class ControlJuego : MonoBehaviour
         tiempoJugado = ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida > 0 ? ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida : 0;
         puntuacionActual = tiempoJugado > 0 ? ArchivosGuardados.instance.datosGuardados.puntuacion : 0;
 
-        enemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList();
-        objetos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_OBJETO).ToList();
+		enemigos = ArchivosGuardados.instance.datosGuardados.enemigos;
+		objetos = ArchivosGuardados.instance.datosGuardados.objetos;
     }
 
     // Start is called before the first frame update
@@ -41,7 +41,7 @@ public class ControlJuego : MonoBehaviour
             CambiarPausa();
 
         //Calcular el número de enemigos
-        int numEnemigos = GameObject.FindGameObjectsWithTag("Enemigo").Length;
+        int numEnemigos = enemigos.Count;
         //Debug.Log(numEnemigos);
         if(numEnemigos <= 0)
             GanarJuego();

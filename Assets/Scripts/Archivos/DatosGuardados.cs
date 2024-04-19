@@ -8,6 +8,8 @@ public class DatosGuardados
     public double tiempoJugadoTotal;
     public int puntuacion;
 
+	public int vida;
+	public float resistencia;
     public int municion;
     public Vector3 posicion;
     public Quaternion rotacion;
@@ -20,7 +22,9 @@ public class DatosGuardados
     {
         this.tiempoJugadoTotal = 0;
         this.puntuacion = 0;
-
+		
+		this.vida = Constantes.VIDA_INICIAL;
+		this.resistencia = Constantes.RESISTENCIA_INICIAL;
         this.municion = Constantes.MUNICION_INICIAL;
         this.posicion = Constantes.POSICION_INICIAL;
         this.rotacion = new Quaternion();
@@ -34,6 +38,8 @@ public class DatosGuardados
         this.tiempoJugadoTotal = tiempoJugadoTotal;
         this.puntuacion = puntuacion;
 
+		this.vida = Constantes.VIDA_INICIAL;
+		this.resistencia = Constantes.RESISTENCIA_INICIAL;
         this.municion = 0;
         this.posicion = new Vector3(0, 0, 0);
         this.rotacion = new Quaternion();
@@ -41,10 +47,13 @@ public class DatosGuardados
         enemigos = new List<GameObject>();
         objetos = new List<GameObject>();
     }
-    public DatosGuardados(double tiempoJugadoTotal, int puntuacion, int municion, Vector3 posicion, Quaternion rotacion)
+	
+    public DatosGuardados(double tiempoJugadoTotal, int puntuacion, int vida, float resistencia, int municion, Vector3 posicion, Quaternion rotacion)
     {
         this.tiempoJugadoTotal = tiempoJugadoTotal;
         this.puntuacion = puntuacion;
+		this.vida = vida;
+		this.resistencia = resistencia;
         this.municion = municion;
         this.posicion = posicion;
         this.rotacion = rotacion;
@@ -58,5 +67,6 @@ public class DatosGuardados
         TimeSpan ts = TimeSpan.FromSeconds(tiempoJugadoTotal);
 
         return String.Format("{0:D2}:{1:D2}:{2:D2}", (int)ts.TotalHours, ts.Minutes, ts.Seconds);
-    }
+  }
+
 }

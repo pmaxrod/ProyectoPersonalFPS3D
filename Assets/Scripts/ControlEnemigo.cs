@@ -75,9 +75,8 @@ public class ControlEnemigo : MonoBehaviour
 
         if (vidasActual <= 0)
         {
-            Destroy(gameObject);
-            
             ControlJuego.instancia.enemigos.Remove(gameObject);
+            Destroy(gameObject);            
         }
     }
 

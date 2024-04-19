@@ -107,14 +107,14 @@ public class ControlHUD : MonoBehaviour
 
     public void OnBotonMenu()
     {
-        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlArma.instance.municionActual,
-        ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlResistencia.instance.resistenciaActual, ControlArma.instance.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
 
         datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
         datos.enemigos = ControlJuego.instancia.enemigos;
         datos.objetos = ControlJuego.instancia.objetos;
-
-        Debug.Log(datos.tiempoJugadoPartida);
+	
+        ArchivosGuardados.instance.DebugDatosGuardados();
+		//Debug.Log(datos.tiempoJugadoPartida);
 
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA, datos);
 

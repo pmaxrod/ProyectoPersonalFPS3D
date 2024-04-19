@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using BayatGames.SaveGameFree;
+using System.Linq;
 
 public class ArchivosGuardados : MonoBehaviour
 {
@@ -34,26 +35,31 @@ public class ArchivosGuardados : MonoBehaviour
             //datosGuardados.posicion = Constantes.POSICION_INICIAL;
             //datosGuardados.rotacion = new Quaternion(0,0,0,0);
             //datosGuardados.tiempoJugadoPartida = 0;
-            // datosGuardados.enemigos = new List<GameObject>();
+            //datosGuardados.enemigos = new List<GameObject>();
             //datosGuardados.objetos = new List<GameObject>();
-            
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datosGuardados);
         }
-
-        Debug.Log(datosGuardados.ToString());
+        
+		DebugDatosGuardados();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+		bool datosLeidos = false;
+		if (ControlJuego.instancia != null && !datosLeidos && !SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA)){
+			datosGuardados.enemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList();
+            datosGuardados.objetos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_OBJETO).ToList();
+			datosLeidos = true;
+		}
     }
+	
     public void CargarDatos()
     {
         if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA))
             datosGuardados = SaveGame.Load<DatosGuardados>(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
-        Debug.Log(datosGuardados.ToString());
-    }
+    	DebugDatosGuardados();
+	}
 
     public void BorrarArchivo(string archivo)
     {
@@ -69,4 +75,24 @@ public class ArchivosGuardados : MonoBehaviour
     {
         BorrarArchivo(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
     }
+	
+	public void DebugDatosGuardados(){
+		Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
+        Debug.Log("Puntuacion: " + datosGuardados.puntuacion);
+        Debug.Log("Municion: " + datosGuardados.municion);
+        Debug.Log("Posicion: " + datosGuardados.posicion);
+        Debug.Log("Rotacion: " + datosGuardados.rotacion);
+        Debug.Log("Tiempo Jugado Partida: " + datosGuardados.tiempoJugadoPartida);
+		
+		foreach (GameObject enemigo in datosGuardados.enemigos)
+		{
+			Debug.Log("Enemigo: " + enemigo.ToString());
+		}
+  
+		foreach (GameObject objeto in datosGuardados.objetos)
+		{
+			Debug.Log("Objeto: " + objeto.ToString());
+		}
+
+	}
 }

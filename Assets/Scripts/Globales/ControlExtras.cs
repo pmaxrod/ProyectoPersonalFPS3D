@@ -23,7 +23,6 @@ public class ControlExtras : MonoBehaviour
             {
                 case TipoExtra.Vida:
                     jugador.IncrementaVida(cantidad);
-                    ControlJuego.instancia.objetos.Remove(gameObject);
                     break;
                 case TipoExtra.Bolas:
                     jugador.IncrementaNumBolas(cantidad);
