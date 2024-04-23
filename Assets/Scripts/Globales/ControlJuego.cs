@@ -40,8 +40,9 @@ public class ControlJuego : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") || Input.GetButtonDown(KeyCode.KeypadEnter.ToString())){
             CambiarPausa();
+        }
 
         //Calcular el n�mero de enemigos
         int numEnemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList().Count;
@@ -77,5 +78,25 @@ public class ControlJuego : MonoBehaviour
     public void GanarJuego()
     {
         ControlHUD.instancia.EstablecerVentanaFinJuego(true);
+    }
+
+    public void InstanciarObjetoJuego(Objeto objeto)
+    {
+        if (!ArchivosGuardados.instance.archivoCargado)
+        {
+           objetos.Add(objeto);
+        }
+        else
+        {
+            if (objeto != null)
+            {
+                gameObject.transform.position = objeto.GetPosicion();
+                gameObject.transform.rotation = objeto.GetRotacion();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

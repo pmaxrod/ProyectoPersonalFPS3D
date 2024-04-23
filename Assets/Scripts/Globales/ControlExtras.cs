@@ -53,22 +53,14 @@ public class ControlExtras : MonoBehaviour
         if (!ArchivosGuardados.instance.archivoCargado)
         {
             objeto = new Objeto(gameObject.GetInstanceID().ToString(), gameObject.transform.position, gameObject.transform.rotation);
-            ControlJuego.instancia.objetos.Add(objeto);
         }
         else
         {
             objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
-
-            if(objeto != null)
-            {
-                gameObject.transform.position = objeto.GetPosicion();
-                gameObject.transform.rotation = objeto.GetRotacion();
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
         }
+
+        ControlJuego.instancia.InstanciarObjetoJuego(objeto);
+
 
     }
 
