@@ -91,11 +91,6 @@ public class ArchivosGuardados : MonoBehaviour
         Debug.Log("Rotacion: " + datosGuardados.rotacion);
         Debug.Log("Tiempo Jugado Partida: " + datosGuardados.tiempoJugadoPartida);
 
-		foreach (Objeto enemigo in datosGuardados.enemigos)
-		{
-			Debug.Log("Enemigo: " + enemigo.ToString());
-		}
-
 		foreach (Objeto objeto in datosGuardados.objetos)
 		{
 			Debug.Log("Objeto: " + objeto.ToString());

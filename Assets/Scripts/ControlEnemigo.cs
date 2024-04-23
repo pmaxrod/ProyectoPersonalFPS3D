@@ -23,6 +23,7 @@ public class ControlEnemigo : MonoBehaviour
 
     private ControlArma arma;
     private ControlJugadorIS objetivo;
+    private Objeto objeto;
 
     // Start is called before the first frame update
     void Start()
@@ -36,13 +37,24 @@ public class ControlEnemigo : MonoBehaviour
         {
             Destroy(gameObject);
         }*/
-        if(!ArchivosGuardados.instance.archivoCargado)
-            ControlJuego.instancia.objetos.Add(new Objeto(gameObject.GetInstanceID().ToString(), gameObject.transform.position, gameObject.transform.rotation));
-        else{
-            Objeto objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id == gameObject.GetInstanceID().ToString());
+        if (!ArchivosGuardados.instance.archivoCargado)
+        {
+            objeto = new Objeto(gameObject.GetInstanceID().ToString(), gameObject.transform.position, gameObject.transform.rotation);
+            ControlJuego.instancia.objetos.Add(objeto);
+        }
+        else
+        {
+            objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
 
-            gameObject.transform.position = objeto.GetPosicion();
-            gameObject.transform.rotation = objeto.GetRotacion();
+            if (objeto != null)
+            {
+                gameObject.transform.position = objeto.GetPosicion();
+                gameObject.transform.rotation = objeto.GetRotacion();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -83,7 +95,7 @@ public class ControlEnemigo : MonoBehaviour
 
         if (vidasActual <= 0)
         {
-            //ControlJuego.instancia.objetos.Remove(gameObject);
+            ControlJuego.instancia.objetos.Remove(objeto);
             Destroy(gameObject);
         }
     }

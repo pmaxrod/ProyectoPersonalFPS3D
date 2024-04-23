@@ -14,8 +14,6 @@ public class DatosGuardados
     public Vector3 posicion;
     public Quaternion rotacion;
     public double tiempoJugadoPartida;
-
-    public List<Objeto> enemigos;
     public List<Objeto> objetos;
 
     public DatosGuardados()
@@ -29,7 +27,6 @@ public class DatosGuardados
         this.posicion = Constantes.POSICION_INICIAL;
         this.rotacion = new Quaternion();
         this.tiempoJugadoPartida = 0;
-        enemigos = new List<Objeto>();
         objetos = new List<Objeto>();
     }
 
@@ -44,7 +41,6 @@ public class DatosGuardados
         this.posicion = new Vector3(0, 0, 0);
         this.rotacion = new Quaternion();
         this.tiempoJugadoPartida = 0;
-        enemigos = new List<Objeto>();
         objetos = new List<Objeto>();
     }
 
@@ -58,7 +54,6 @@ public class DatosGuardados
         this.posicion = posicion;
         this.rotacion = rotacion;
         this.tiempoJugadoPartida = 0;
-        enemigos = new List<Objeto>();
         objetos = new List<Objeto>();
     }
 

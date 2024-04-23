@@ -14,6 +14,7 @@ public class ControlExtras : MonoBehaviour
     public TipoExtra tipo;
     public int cantidad;
 
+    private Objeto objeto;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -28,7 +29,7 @@ public class ControlExtras : MonoBehaviour
                     jugador.IncrementaNumBolas(cantidad);
                     break;
             }
-			//ControlJuego.instancia.objetos.Remove(gameObject);
+            ControlJuego.instancia.objetos.Remove(objeto);
             Destroy(gameObject);
         }
 
@@ -49,13 +50,24 @@ public class ControlExtras : MonoBehaviour
             Objeto objetoLista = ArchivosGuardados.instance.datosGuardados.objetos.Find(objeto.id);
             //gameObject.transform.position = ob
         }*/
-        if(!ArchivosGuardados.instance.archivoCargado)
-            ControlJuego.instancia.objetos.Add(new Objeto(gameObject.GetInstanceID().ToString(), gameObject.transform.position, gameObject.transform.rotation));
-        else{
-            Objeto objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id == gameObject.GetInstanceID().ToString());
+        if (!ArchivosGuardados.instance.archivoCargado)
+        {
+            objeto = new Objeto(gameObject.GetInstanceID().ToString(), gameObject.transform.position, gameObject.transform.rotation);
+            ControlJuego.instancia.objetos.Add(objeto);
+        }
+        else
+        {
+            objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
 
-            gameObject.transform.position = objeto.GetPosicion();
-            gameObject.transform.rotation = objeto.GetRotacion();
+            if(objeto != null)
+            {
+                gameObject.transform.position = objeto.GetPosicion();
+                gameObject.transform.rotation = objeto.GetRotacion();
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
     }
