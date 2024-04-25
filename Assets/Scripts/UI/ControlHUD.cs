@@ -36,14 +36,7 @@ public class ControlHUD : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != this && instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        instance = this;
 
         if (ventanaBorrarDatos != null)
             ventanaBorrarDatos.SetActive(false);
@@ -107,8 +100,9 @@ public class ControlHUD : MonoBehaviour
         DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instance.tiempoJugado, puntos);
 
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
+        Debug.Log("Guardando...");
 
-		ArchivosGuardados.instance.BorrarArchivoCarga();
+        ArchivosGuardados.instance.BorrarArchivoCarga();
 
         //Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
 
@@ -116,16 +110,15 @@ public class ControlHUD : MonoBehaviour
 
     public void OnBotonMenu()
     {
-        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instance.tiempoJugado, ControlJuego.instance.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlResistencia.instance.resistenciaActual, ControlArma.instance.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instance.tiempoJugado, ControlJuego.instance.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlJugadorIS.instance.resistencia.resistenciaActual,ControlJugadorIS.instance.arma.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
 
         datos.tiempoJugadoPartida = ControlJuego.instance.tiempoJugado;
         //datos.enemigos = ControlJuego.instancia.enemigos;
         datos.objetos = ControlJuego.instance.objetos;
 
         ArchivosGuardados.instance.DebugDatosGuardados(datos);
-		Debug.Log(datos.tiempoJugadoPartida);
-
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA, datos);
+        Debug.Log("Guardando para cargar despues...");
 
         SceneManager.LoadScene("Menu");
     }

@@ -30,7 +30,8 @@ public class ControlJugadorIS : MonoBehaviour
 
     private bool puedeSaltar = true;
 
-    private ControlArma arma;
+    public ControlArma arma;
+    public ControlResistencia resistencia;
     private PlayerInput playerInput;
     private int numeroSaltos = 2;
 
@@ -42,21 +43,20 @@ public class ControlJugadorIS : MonoBehaviour
         fisica = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
         arma = GetComponent<ControlArma>();
+        resistencia = GetComponent<ControlResistencia>();
         Cursor.lockState = CursorLockMode.Locked; // Oculta el cursor
         playerInput = GetComponent<PlayerInput>();
 
-        if (instance != this && instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
+        instance = this;
+        /*if (instance == null || instance != this)
             instance = this;
-        }
+        else
+            Destroy(gameObject);*/
 
         gameObject.transform.position = ArchivosGuardados.instance.datosGuardados.posicion;
         gameObject.transform.rotation = ArchivosGuardados.instance.datosGuardados.rotacion;
         vidasActual = ArchivosGuardados.instance.datosGuardados.vida;
+
     }
 
     // Start is called before the first frame update

@@ -10,7 +10,7 @@ public class ControlJuego : MonoBehaviour
     public int puntuacionParaGanar;
 
     public bool juegoPausado;
-	public double tiempoJugado;
+    public double tiempoJugado;
 
     public List<Objeto> objetos;
     public static ControlJuego instance;
@@ -18,25 +18,25 @@ public class ControlJuego : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != this && instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        instance = this;
+        /*        if (instance == null || instance != this)
+                    instance = this;
+                else
+                    Destroy(gameObject);
+        */
         //tiempoJugado = Constantes.TIEMPO_PARTIDA > 0 ? Constantes.TIEMPO_PARTIDA : 0;
         tiempoJugado = ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida > 0 ? ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida : 0;
         puntuacionActual = tiempoJugado > 0 ? ArchivosGuardados.instance.datosGuardados.puntuacion : 0;
 
-        if (ArchivosGuardados.instance.archivoCargado){
-            objetos =  ArchivosGuardados.instance.datosGuardados.objetos;
+        if (ArchivosGuardados.instance.archivoCargado)
+        {
+            objetos = ArchivosGuardados.instance.datosGuardados.objetos;
         }
-        else{
+        else
+        {
             objetos = new List<Objeto>();
         }
-     }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,17 +47,18 @@ public class ControlJuego : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") || Input.GetButtonDown(KeyCode.KeypadEnter.ToString())){
+        if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
             CambiarPausa();
         }
 
         //Calcular el n�mero de enemigos
         int numEnemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList().Count;
         //Debug.Log(numEnemigos);
-        if(numEnemigos <= 0)
+        if (numEnemigos <= 0)
             GanarJuego();
 
-		if (!juegoPausado && !ControlHUD.instance.ventanaFinJuego.activeSelf)
+        if (!juegoPausado && !ControlHUD.instance.ventanaFinJuego.activeSelf)
         {
             tiempoJugado += Time.deltaTime;
         }
@@ -87,11 +88,13 @@ public class ControlJuego : MonoBehaviour
         ControlHUD.instance.EstablecerVentanaFinJuego(true);
     }
 
-    public void InstanciarObjetoJuego(Objeto objeto)
+    public void InstanciarObjetoJuego(GameObject gameObject, Objeto objeto)
     {
+        /* Debug.Log(gameObject.GetInstanceID());
+         Debug.Log(objeto.id);*/
         if (!ArchivosGuardados.instance.archivoCargado)
         {
-           objetos.Add(objeto);
+            objetos.Add(objeto);
         }
         else
         {

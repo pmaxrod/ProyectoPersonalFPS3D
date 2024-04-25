@@ -10,15 +10,13 @@ public class ControlArma : MonoBehaviour
     //public GameObject bolaPrefab;
     private PoolObjetos bolaPool;
     public Transform puntoSalida;
-    public int municionActual;
+    public int municionActual = 10;
     public int municionMax = Constantes.MUNICION_INICIAL;
     public bool municionInfinita = false;
     public float velocidadBola = 10;
     public float frecuenciaDisparo = 0.2f;
     private float ultimoTiempoDisparo;
     private bool esJugador;
-
-    public static ControlArma instance;
     private void Awake()
     {
         //Soy el jugador??
@@ -27,16 +25,9 @@ public class ControlArma : MonoBehaviour
 
         bolaPool = GetComponent<PoolObjetos>();
 
-        municionActual = ArchivosGuardados.instance.datosGuardados.municion;
-
-        if (instance != this && instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        if(esJugador)
+            municionActual = ArchivosGuardados.instance.datosGuardados.municion;
+               
     }
 
     public bool PuedeDisparar()

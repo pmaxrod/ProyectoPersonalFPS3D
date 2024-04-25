@@ -8,26 +8,25 @@ public class ArchivosGuardados : MonoBehaviour
 {
     public DatosGuardados datosGuardados;
 
-	public bool archivoCargado = false;
+    public bool archivoCargado;
 
-	public static ArchivosGuardados instance;
+    public static ArchivosGuardados instance;
 
     private void Awake()
     {
-
         datosGuardados = new DatosGuardados();
 
-		/*if (instance == null)*/
-	    DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(this.transform.gameObject);
 
-        if (instance != this && instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        instance = this;
+
+        /*if (GameObject.FindObjectsByType<ArchivosGuardados>(FindObjectsSortMode.None).Length > 0)
+            Destroy(gameObject);*/
+
+       /* if (instance == null || instance != this)
+             instance = this;
+         else
+             Destroy(gameObject);*/
     }
 
     // Start is called before the first frame update
@@ -36,7 +35,6 @@ public class ArchivosGuardados : MonoBehaviour
         if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO))
         {
             datosGuardados = SaveGame.Load<DatosGuardados>(Constantes.NOMBRE_ARCHIVO_GUARDADO);
-            //datosGuardados.municion = SaveGame.Load<int>(Constantes.NOMBRE_ARCHIVO_GUARDADO);
         }
         else
         {
@@ -51,13 +49,13 @@ public class ArchivosGuardados : MonoBehaviour
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datosGuardados);
         }
 
-		DebugDatosGuardados(datosGuardados);
+        DebugDatosGuardados(datosGuardados);
     }
 
     // Update is called once per frame
     void Update()
     {
-		/*bool datosLeidos = false;
+        /*bool datosLeidos = false;
 		if (ControlJuego.instancia != null && !datosLeidos && !archivoCargado){
 			datosGuardados.enemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList();
             datosGuardados.objetos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_OBJETO).ToList();
@@ -67,13 +65,14 @@ public class ArchivosGuardados : MonoBehaviour
 
     public void CargarDatos()
     {
-        if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA)){
+        if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA))
+        {
             datosGuardados = SaveGame.Load<DatosGuardados>(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
-			archivoCargado = true;
-
-			DebugDatosGuardados(datosGuardados);
-		}
-	}
+            archivoCargado = true;
+            Debug.Log("Cargando datos guardados");
+            //DebugDatosGuardados(datosGuardados);
+        }
+    }
 
     public void BorrarArchivo(string archivo)
     {
@@ -81,7 +80,7 @@ public class ArchivosGuardados : MonoBehaviour
             SaveGame.Delete(archivo);
         else
         {
-            Debug.Log($"El archivo {archivo} no existe. Compruebe que el nombre est� bien escrito.");
+            Debug.Log($"El archivo {archivo} no existe.");
         }
     }
 
@@ -90,18 +89,19 @@ public class ArchivosGuardados : MonoBehaviour
         BorrarArchivo(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
     }
 
-	public void DebugDatosGuardados(DatosGuardados datosGuardados){
-		Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
+    public void DebugDatosGuardados(DatosGuardados datosGuardados)
+    {
+        Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
         Debug.Log("Puntuacion: " + datosGuardados.puntuacion);
         Debug.Log("Municion: " + datosGuardados.municion);
         Debug.Log("Posicion: " + datosGuardados.posicion);
         Debug.Log("Rotacion: " + datosGuardados.rotacion);
         Debug.Log("Tiempo Jugado Partida: " + datosGuardados.tiempoJugadoPartida);
 
-		foreach (Objeto objeto in datosGuardados.objetos)
-		{
-			Debug.Log("Objeto: " + objeto.ToString());
-		}
+        foreach (Objeto objeto in datosGuardados.objetos)
+        {
+            Debug.Log("Objeto: " + objeto.ToString());
+        }
 
-	}
+    }
 }
