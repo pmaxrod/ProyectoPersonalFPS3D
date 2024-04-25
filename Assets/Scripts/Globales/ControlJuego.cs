@@ -80,7 +80,7 @@ public class ControlJuego : MonoBehaviour
         ControlHUD.instancia.EstablecerVentanaFinJuego(true);
     }
 
-    public void InstanciarObjetoJuego(Objeto objeto)
+    public void InstanciarObjetoJuego(Objeto objeto, GameObject gameObject)
     {
         if (!ArchivosGuardados.instance.archivoCargado)
         {

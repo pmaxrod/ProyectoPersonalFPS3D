@@ -1118,8 +1118,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2063131195}
-        m_TargetAssemblyTypeName: ControlHUD, Assembly-CSharp
+      - m_Target: {fileID: 1304936876}
+        m_TargetAssemblyTypeName: ArchivosGuardados, Assembly-CSharp
         m_MethodName: CargarPartida
         m_Mode: 1
         m_Arguments:
@@ -1331,6 +1331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da10b69f598742e45972043db55bba15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  archivoCargado: 0
 --- !u!4 &1304936877
 Transform:
   m_ObjectHideFlags: 0
@@ -2040,8 +2041,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2063131195}
-        m_TargetAssemblyTypeName: ControlHUD, Assembly-CSharp
+      - m_Target: {fileID: 1304936876}
+        m_TargetAssemblyTypeName: ArchivosGuardados, Assembly-CSharp
         m_MethodName: NuevaPartida
         m_Mode: 1
         m_Arguments:

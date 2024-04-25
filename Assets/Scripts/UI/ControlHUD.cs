@@ -44,6 +44,23 @@ public class ControlHUD : MonoBehaviour
             botonCargarPartida.interactable = SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
     }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        tiempoArchivo = ArchivosGuardados.instance.datosGuardados.tiempoJugadoTotal;
+        puntuacionArchivo = ArchivosGuardados.instance.datosGuardados.puntuacion;
+
+        if (tiempoJugadoTotal != null)
+        {
+            TextoTiempoJugado(tiempoArchivo);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
+
     public void ActualizaBarraVida(int vidaActual, int vidaMax)
     {
         //barraVidas.fillAmount = (float)vidaActual /(float)vidaMax;
@@ -82,42 +99,29 @@ public class ControlHUD : MonoBehaviour
             puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
         }
-        int puntos;
 
-        if (puntuacionArchivo < ControlJuego.instancia.puntuacionActual && ganado)
-        {
-            puntos = ControlJuego.instancia.puntuacionActual;
-        }
-        else
-        {
-            puntos = puntuacionArchivo;
-        }
-
-        if (puntuacionMaximaTexto != null)
-            puntuacionMaximaTexto.text = "Puntuación máxima: " + puntos;
-
-        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
-
-        SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
-
-		ArchivosGuardados.instance.BorrarArchivoCarga();
-
-        //Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
+        ArchivosGuardados.instance.GuardarDatosFin(ganado, puntuacionArchivo, tiempoArchivo, puntuacionMaximaTexto);
 
     }
 
+    public void AbrirBorrarDatos()
+    {
+        ventanaBorrarDatos.SetActive(true);
+    }
+
+    public void CerrarBorrarDatos()
+    {
+        ventanaBorrarDatos.SetActive(false);
+    }
+    public void TextoTiempoJugado(double tiempo)
+    {
+        tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempo);
+    }
+
+
     public void OnBotonMenu()
     {
-        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlJugadorIS.instance.controlResistencia.resistenciaActual, ControlJugadorIS.instance.arma.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
-
-        datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
-        //datos.enemigos = ControlJuego.instancia.enemigos;
-        datos.objetos = ControlJuego.instancia.objetos;
-
-        ArchivosGuardados.instance.DebugDatosGuardados(datos);
-		Debug.Log(datos.tiempoJugadoPartida);
-
-        SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA, datos);
+        ArchivosGuardados.instance.GuardarDatosCarga(tiempoArchivo);
 
         SceneManager.LoadScene("Menu");
     }
@@ -131,63 +135,4 @@ public class ControlHUD : MonoBehaviour
     {
         Application.Quit();
     }
-
-    public void AbrirBorrarDatos()
-    {
-        ventanaBorrarDatos.SetActive(true);
-    }
-
-    public void CerrarBorrarDatos()
-    {
-        ventanaBorrarDatos.SetActive(false);
-    }
-
-    public void NuevaPartida()
-    {
-        ArchivosGuardados.instance.BorrarArchivoCarga();
-
-        SceneManager.LoadScene("Nivel1");
-    }
-
-    public void CargarPartida()
-    {
-        ArchivosGuardados.instance.CargarDatos();
-
-        ArchivosGuardados.instance.BorrarArchivoCarga();
-
-        SceneManager.LoadScene("Nivel1");
-    }
-
-    public void BorrarDatos()
-    {
-        ArchivosGuardados.instance.BorrarArchivo(Constantes.NOMBRE_ARCHIVO_GUARDADO);
-        ArchivosGuardados.instance.BorrarArchivoCarga();
-        CerrarBorrarDatos();
-        TextoTiempoJugado(0);
-        botonCargarPartida.interactable = false;
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        tiempoArchivo = ArchivosGuardados.instance.datosGuardados.tiempoJugadoTotal;
-        puntuacionArchivo = ArchivosGuardados.instance.datosGuardados.puntuacion;
-
-        if (tiempoJugadoTotal != null)
-        {
-            TextoTiempoJugado(tiempoArchivo);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    private void TextoTiempoJugado(double tiempo)
-    {
-        tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempo);
-    }
-
 }

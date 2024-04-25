@@ -46,7 +46,7 @@ public class ControlEnemigo : MonoBehaviour
             objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
         }
 
-        ControlJuego.instancia.InstanciarObjetoJuego(objeto);
+        ControlJuego.instancia.InstanciarObjetoJuego(objeto, gameObject);
     }
 
     // Update is called once per frame

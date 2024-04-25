@@ -59,7 +59,7 @@ public class ControlExtras : MonoBehaviour
             objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
         }
 
-        ControlJuego.instancia.InstanciarObjetoJuego(objeto);
+        ControlJuego.instancia.InstanciarObjetoJuego(objeto, gameObject);
 
 
     }

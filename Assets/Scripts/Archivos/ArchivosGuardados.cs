@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using BayatGames.SaveGameFree;
 using System.Linq;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ArchivosGuardados : MonoBehaviour
 {
     public DatosGuardados datosGuardados;
 
-	public bool archivoCargado = false;
+    public bool archivoCargado = false;
 
-	public static ArchivosGuardados instance;
+    public static ArchivosGuardados instance;
 
     private void Awake()
     {
 
         datosGuardados = new DatosGuardados();
 
-		/*if (instance == null)*/
-	    DontDestroyOnLoad(transform.gameObject);
+        /*if (instance == null)*/
+        DontDestroyOnLoad(transform.gameObject);
 
         instance = this;
     }
@@ -44,13 +46,13 @@ public class ArchivosGuardados : MonoBehaviour
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datosGuardados);
         }
 
-		DebugDatosGuardados(datosGuardados);
+        DebugDatosGuardados(datosGuardados);
     }
 
     // Update is called once per frame
     void Update()
     {
-		/*bool datosLeidos = false;
+        /*bool datosLeidos = false;
 		if (ControlJuego.instancia != null && !datosLeidos && !archivoCargado){
 			datosGuardados.enemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList();
             datosGuardados.objetos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_OBJETO).ToList();
@@ -60,13 +62,14 @@ public class ArchivosGuardados : MonoBehaviour
 
     public void CargarDatos()
     {
-        if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA)){
+        if (SaveGame.Exists(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA))
+        {
             datosGuardados = SaveGame.Load<DatosGuardados>(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
-			archivoCargado = true;
+            archivoCargado = true;
 
-			DebugDatosGuardados(datosGuardados);
-		}
-	}
+            DebugDatosGuardados(datosGuardados);
+        }
+    }
 
     public void BorrarArchivo(string archivo)
     {
@@ -83,18 +86,86 @@ public class ArchivosGuardados : MonoBehaviour
         BorrarArchivo(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA);
     }
 
-	public void DebugDatosGuardados(DatosGuardados datosGuardados){
-		Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
+    public void DebugDatosGuardados(DatosGuardados datosGuardados)
+    {
+        Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
         Debug.Log("Puntuacion: " + datosGuardados.puntuacion);
         Debug.Log("Municion: " + datosGuardados.municion);
         Debug.Log("Posicion: " + datosGuardados.posicion);
         Debug.Log("Rotacion: " + datosGuardados.rotacion);
         Debug.Log("Tiempo Jugado Partida: " + datosGuardados.tiempoJugadoPartida);
 
-		foreach (Objeto objeto in datosGuardados.objetos)
-		{
-			Debug.Log("Objeto: " + objeto.ToString());
-		}
+        foreach (Objeto objeto in datosGuardados.objetos)
+        {
+            Debug.Log("Objeto: " + objeto.ToString());
+        }
 
-	}
+    }
+
+    public void GuardarDatosFin(bool ganado, int puntuacionMaxima, double tiempoArchivo, TextMeshProUGUI textoPuntuacion)
+    {
+        int puntos;
+
+        if (puntuacionMaxima < ControlJuego.instancia.puntuacionActual && ganado)
+        {
+            puntos = ControlJuego.instancia.puntuacionActual;
+        }
+        else
+        {
+            puntos = puntuacionMaxima;
+        }
+
+        if (textoPuntuacion != null)
+            textoPuntuacion.text = "Puntuación máxima: " + puntos;
+
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
+
+        SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
+
+        Debug.Log("Guardando...");
+        ArchivosGuardados.instance.BorrarArchivoCarga();
+
+        //Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
+    }
+
+    public void GuardarDatosCarga(double tiempoArchivo)
+    {
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlJugadorIS.instance.controlResistencia.resistenciaActual, ControlJugadorIS.instance.arma.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
+
+        datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
+        //datos.enemigos = ControlJuego.instancia.enemigos;
+        datos.objetos = ControlJuego.instancia.objetos;
+
+        ArchivosGuardados.instance.DebugDatosGuardados(datos);
+        Debug.Log(datos.tiempoJugadoPartida);
+
+        SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA, datos);
+    }
+
+    public void NuevaPartida()
+    {
+        BorrarArchivoCarga();
+
+        SceneManager.LoadScene("Nivel1");
+    }
+
+    public void CargarPartida()
+    {
+        CargarDatos();
+
+        BorrarArchivoCarga();
+
+        SceneManager.LoadScene("Nivel1");
+    }
+
+    public void BorrarDatos()
+    {
+        BorrarArchivo(Constantes.NOMBRE_ARCHIVO_GUARDADO);
+        BorrarArchivoCarga();
+
+        ControlHUD.instancia.CerrarBorrarDatos();
+        ControlHUD.instancia.TextoTiempoJugado(0);
+
+        ControlHUD.instancia.botonCargarPartida.interactable = false;
+    }
 }
