@@ -13,12 +13,19 @@ public class ControlJuego : MonoBehaviour
 	public double tiempoJugado;
 
     public List<Objeto> objetos;
-    public static ControlJuego instancia;
+    public static ControlJuego instance;
 
 
     private void Awake()
     {
-        instancia = this;
+        if (instance != this && instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
         //tiempoJugado = Constantes.TIEMPO_PARTIDA > 0 ? Constantes.TIEMPO_PARTIDA : 0;
         tiempoJugado = ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida > 0 ? ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida : 0;
         puntuacionActual = tiempoJugado > 0 ? ArchivosGuardados.instance.datosGuardados.puntuacion : 0;
@@ -50,7 +57,7 @@ public class ControlJuego : MonoBehaviour
         if(numEnemigos <= 0)
             GanarJuego();
 
-		if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.activeSelf)
+		if (!juegoPausado && !ControlHUD.instance.ventanaFinJuego.activeSelf)
         {
             tiempoJugado += Time.deltaTime;
         }
@@ -62,13 +69,13 @@ public class ControlJuego : MonoBehaviour
         Time.timeScale = (juegoPausado) ? 0.0f : 1f;
         Cursor.lockState = (juegoPausado) ? CursorLockMode.None : CursorLockMode.Locked;
 
-        ControlHUD.instancia.CambiarEstadoVentanaPausa(juegoPausado);
+        ControlHUD.instance.CambiarEstadoVentanaPausa(juegoPausado);
     }
 
     public void PonerPuntuacion(int puntuacion)
     {
         puntuacionActual += puntuacion;
-        ControlHUD.instancia.ActualizarPuntuacion(puntuacionActual);
+        ControlHUD.instance.ActualizarPuntuacion(puntuacionActual);
 
         // Para ganar por puntuaci�n
         //if (puntuacionActual >= puntuacionParaGanar)
@@ -77,7 +84,7 @@ public class ControlJuego : MonoBehaviour
 
     public void GanarJuego()
     {
-        ControlHUD.instancia.EstablecerVentanaFinJuego(true);
+        ControlHUD.instance.EstablecerVentanaFinJuego(true);
     }
 
     public void InstanciarObjetoJuego(Objeto objeto)

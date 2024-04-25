@@ -27,9 +27,16 @@ public class ControlArma : MonoBehaviour
 
         bolaPool = GetComponent<PoolObjetos>();
 
-        instance = this;
-
         municionActual = ArchivosGuardados.instance.datosGuardados.municion;
+
+        if (instance != this && instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
     public bool PuedeDisparar()
@@ -75,7 +82,7 @@ public class ControlArma : MonoBehaviour
             // Disparo enemigo
             bola.GetComponent<Rigidbody>().velocity = puntoSalida.forward * velocidadBola;
         }
-        ControlHUD.instancia.ActualizarNumBolasTexto(municionActual, municionMax);
+        ControlHUD.instance.ActualizarNumBolasTexto(municionActual, municionMax);
 
     }
 }

@@ -33,7 +33,15 @@ public class ControlResistencia : MonoBehaviour
         ActualizarBarraResistencia();
 
         playerInput = GetComponent<PlayerInput>();
-		instance = this;
+
+        if (instance != this && instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
     }
 
     private void Update()

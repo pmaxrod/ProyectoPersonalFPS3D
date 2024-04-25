@@ -29,7 +29,7 @@ public class ControlExtras : MonoBehaviour
                     jugador.IncrementaNumBolas(cantidad);
                     break;
             }
-            ControlJuego.instancia.objetos.Remove(objeto);
+            ControlJuego.instance.objetos.Remove(objeto);
             Destroy(gameObject);
         }
 
@@ -59,7 +59,7 @@ public class ControlExtras : MonoBehaviour
             objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
         }
 
-        ControlJuego.instancia.InstanciarObjetoJuego(objeto);
+        ControlJuego.instance.InstanciarObjetoJuego(objeto);
 
 
     }
