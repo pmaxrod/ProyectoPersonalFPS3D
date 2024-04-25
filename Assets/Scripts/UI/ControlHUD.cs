@@ -108,7 +108,7 @@ public class ControlHUD : MonoBehaviour
 
     public void OnBotonMenu()
     {
-        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlResistencia.instance.resistenciaActual, ControlArma.instance.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlJugadorIS.instance.controlResistencia.resistenciaActual, ControlJugadorIS.instance.arma.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
 
         datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
         //datos.enemigos = ControlJuego.instancia.enemigos;

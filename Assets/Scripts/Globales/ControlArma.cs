@@ -10,7 +10,7 @@ public class ControlArma : MonoBehaviour
     //public GameObject bolaPrefab;
     private PoolObjetos bolaPool;
     public Transform puntoSalida;
-    public int municionActual;
+    public int municionActual = 10;
     public int municionMax = Constantes.MUNICION_INICIAL;
     public bool municionInfinita = false;
     public float velocidadBola = 10;
@@ -26,10 +26,9 @@ public class ControlArma : MonoBehaviour
             esJugador = true;
 
         bolaPool = GetComponent<PoolObjetos>();
-
-        instance = this;
-
-        municionActual = ArchivosGuardados.instance.datosGuardados.municion;
+        
+        if (esJugador)
+            municionActual = ArchivosGuardados.instance.datosGuardados.municion;
     }
 
     public bool PuedeDisparar()

@@ -30,7 +30,8 @@ public class ControlJugadorIS : MonoBehaviour
 
     private bool puedeSaltar = true;
 
-    private ControlArma arma;
+    public ControlArma arma;
+    public ControlResistencia controlResistencia;
     private PlayerInput playerInput;
     private int numeroSaltos = 2;
 
@@ -42,6 +43,7 @@ public class ControlJugadorIS : MonoBehaviour
         fisica = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
         arma = GetComponent<ControlArma>();
+        controlResistencia = GetComponent<ControlResistencia>();
         Cursor.lockState = CursorLockMode.Locked; // Oculta el cursor
         playerInput = GetComponent<PlayerInput>();
         instance = this;

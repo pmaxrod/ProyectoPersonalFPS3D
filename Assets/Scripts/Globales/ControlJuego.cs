@@ -40,7 +40,7 @@ public class ControlJuego : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") || Input.GetButtonDown(KeyCode.KeypadEnter.ToString())){
+        if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.KeypadEnter)){
             CambiarPausa();
         }
 
