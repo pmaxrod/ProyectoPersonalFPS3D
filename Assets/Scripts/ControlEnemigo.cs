@@ -46,7 +46,7 @@ public class ControlEnemigo : MonoBehaviour
             objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
         }
 
-        ControlJuego.instance.InstanciarObjetoJuego(objeto);
+        ControlJuego.instancia.InstanciarObjetoJuego(objeto);
     }
 
     // Update is called once per frame
@@ -80,13 +80,13 @@ public class ControlEnemigo : MonoBehaviour
     {
         vidasActual -= cantidad;
 
-        int puntuacion = puntuacionEnemigo * ControlJugadorIS.instance.vidasActual * (int)(ControlJuego.instance.tiempoJugado);
+        int puntuacion = puntuacionEnemigo * ControlJugadorIS.instance.vidasActual * (int)(ControlJuego.instancia.tiempoJugado);
 
-        ControlJuego.instance.PonerPuntuacion(puntuacion);
+        ControlJuego.instancia.PonerPuntuacion(puntuacion);
 
         if (vidasActual <= 0)
         {
-            ControlJuego.instance.objetos.Remove(objeto);
+            ControlJuego.instancia.objetos.Remove(objeto);
             Destroy(gameObject);
         }
     }

@@ -20,14 +20,7 @@ public class ArchivosGuardados : MonoBehaviour
 		/*if (instance == null)*/
 	    DontDestroyOnLoad(transform.gameObject);
 
-        if (instance != this && instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        instance = this;
     }
 
     // Start is called before the first frame update

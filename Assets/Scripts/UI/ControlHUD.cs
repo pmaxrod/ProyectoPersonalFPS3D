@@ -29,22 +29,14 @@ public class ControlHUD : MonoBehaviour
     [Header("Ventana Borrar Datos")]
     public GameObject ventanaBorrarDatos;
 
-    public static ControlHUD instance;
+    public static ControlHUD instancia;
 
     private int puntuacionArchivo;
     private double tiempoArchivo;
 
     private void Awake()
     {
-        if (instance != this && instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-
+        instancia = this;
         if (ventanaBorrarDatos != null)
             ventanaBorrarDatos.SetActive(false);
 
@@ -66,7 +58,7 @@ public class ControlHUD : MonoBehaviour
 
     public void ActualizarPuntuacion(int puntuacion)
     {
-        puntuacionTexto.text = ControlJuego.instance.puntuacionActual.ToString("00000");
+        puntuacionTexto.text = ControlJuego.instancia.puntuacionActual.ToString("00000");
     }
 
     public void CambiarEstadoVentanaPausa(bool pausa)
@@ -87,14 +79,14 @@ public class ControlHUD : MonoBehaviour
         if (ganado)
         {
             puntuacionTextoFin.gameObject.SetActive(true);
-            puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instance.puntuacionActual}";
+            puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
         }
         int puntos;
 
-        if (puntuacionArchivo < ControlJuego.instance.puntuacionActual && ganado)
+        if (puntuacionArchivo < ControlJuego.instancia.puntuacionActual && ganado)
         {
-            puntos = ControlJuego.instance.puntuacionActual;
+            puntos = ControlJuego.instancia.puntuacionActual;
         }
         else
         {
@@ -104,7 +96,7 @@ public class ControlHUD : MonoBehaviour
         if (puntuacionMaximaTexto != null)
             puntuacionMaximaTexto.text = "Puntuación máxima: " + puntos;
 
-        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instance.tiempoJugado, puntos);
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
 
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
 
@@ -116,11 +108,11 @@ public class ControlHUD : MonoBehaviour
 
     public void OnBotonMenu()
     {
-        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instance.tiempoJugado, ControlJuego.instance.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlResistencia.instance.resistenciaActual, ControlArma.instance.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlResistencia.instance.resistenciaActual, ControlArma.instance.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
 
-        datos.tiempoJugadoPartida = ControlJuego.instance.tiempoJugado;
+        datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
         //datos.enemigos = ControlJuego.instancia.enemigos;
-        datos.objetos = ControlJuego.instance.objetos;
+        datos.objetos = ControlJuego.instancia.objetos;
 
         ArchivosGuardados.instance.DebugDatosGuardados(datos);
 		Debug.Log(datos.tiempoJugadoPartida);
@@ -132,7 +124,7 @@ public class ControlHUD : MonoBehaviour
 
     public void OnBotonVolver()
     {
-        ControlJuego.instance.CambiarPausa();
+        ControlJuego.instancia.CambiarPausa();
     }
 
     public void OnBotonSalir()

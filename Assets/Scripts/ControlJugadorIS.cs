@@ -44,28 +44,20 @@ public class ControlJugadorIS : MonoBehaviour
         arma = GetComponent<ControlArma>();
         Cursor.lockState = CursorLockMode.Locked; // Oculta el cursor
         playerInput = GetComponent<PlayerInput>();
-
-        if (instance != this && instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
+        instance = this;
 
         gameObject.transform.position = ArchivosGuardados.instance.datosGuardados.posicion;
         gameObject.transform.rotation = ArchivosGuardados.instance.datosGuardados.rotacion;
-        vidasActual = ArchivosGuardados.instance.datosGuardados.vida;
+		vidasActual = ArchivosGuardados.instance.datosGuardados.vida;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Time.timeScale = 1.0f;
-        ControlHUD.instance.ActualizarNumBolasTexto(arma.municionActual, arma.municionMax);
-        ControlHUD.instance.ActualizaBarraVida(vidasActual, vidasMax);
-        ControlHUD.instance.ActualizarPuntuacion(0);
+        ControlHUD.instancia.ActualizarNumBolasTexto(arma.municionActual, arma.municionMax);
+        ControlHUD.instancia.ActualizaBarraVida(vidasActual, vidasMax);
+        ControlHUD.instancia.ActualizarPuntuacion(0);
     }
 
     // Update is called once per frame
@@ -76,7 +68,7 @@ public class ControlJugadorIS : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (ControlJuego.instance.juegoPausado) return;
+        if (ControlJuego.instancia.juegoPausado) return;
 
         // Obtener la dirección de movimiento
         Vector3 movimiento = transform.forward * movimientoInput.y + transform.right * movimientoInput.x;
@@ -152,11 +144,6 @@ public class ControlJugadorIS : MonoBehaviour
         }
     }
 
-    void OnMenu()
-    {
-        ControlJuego.instance.CambiarPausa();
-    }
-
     private bool PuedeSaltar()
     {
         //Test that we are grounded by drawing an invisible line(raycast)
@@ -178,7 +165,7 @@ public class ControlJugadorIS : MonoBehaviour
     {
         vidasActual -= cantidad;
 
-        ControlHUD.instance.ActualizaBarraVida(vidasActual, vidasMax);
+        ControlHUD.instancia.ActualizaBarraVida(vidasActual, vidasMax);
 
         if (vidasActual <= 0)
             TerminaJugador();
@@ -187,18 +174,18 @@ public class ControlJugadorIS : MonoBehaviour
     private void TerminaJugador()
     {
         Debug.Log("GAME OVER!!!");
-        ControlHUD.instance.EstablecerVentanaFinJuego(false);
+        ControlHUD.instancia.EstablecerVentanaFinJuego(false);
     }
 
     public void IncrementaVida(int cantidadVida)
     {
         vidasActual = Mathf.Clamp(vidasActual + cantidadVida, 0, vidasMax);
-        ControlHUD.instance.ActualizaBarraVida(vidasActual, vidasMax);
+        ControlHUD.instancia.ActualizaBarraVida(vidasActual, vidasMax);
     }
 
     public void IncrementaNumBolas(int cantidadBolas)
     {
         arma.municionActual = Mathf.Clamp(arma.municionActual + cantidadBolas, 0, arma.municionMax);
-        ControlHUD.instance.ActualizarNumBolasTexto(arma.municionActual, arma.municionMax);
+        ControlHUD.instancia.ActualizarNumBolasTexto(arma.municionActual, arma.municionMax);
     }
 }
