@@ -18,7 +18,7 @@ public class DatosGuardados
 
     public DatosGuardados()
     {
-        this.tiempoJugadoTotal = 0;
+        /*this.tiempoJugadoTotal = 0;
         this.puntuacion = 0;
 
 		this.vida = Constantes.VIDA_INICIAL;
@@ -27,7 +27,7 @@ public class DatosGuardados
         this.posicion = Constantes.POSICION_INICIAL;
         this.rotacion = new Quaternion();
         this.tiempoJugadoPartida = 0;
-        objetos = new List<Objeto>();
+        objetos = new List<Objeto>();*/
     }
 
     public DatosGuardados(double tiempoJugadoTotal, int puntuacion)
@@ -35,13 +35,13 @@ public class DatosGuardados
         this.tiempoJugadoTotal = tiempoJugadoTotal;
         this.puntuacion = puntuacion;
 
-		this.vida = Constantes.VIDA_INICIAL;
+		/*this.vida = Constantes.VIDA_INICIAL;
 		this.resistencia = Constantes.RESISTENCIA_INICIAL;
         this.municion = 0;
         this.posicion = new Vector3(0, 0, 0);
         this.rotacion = new Quaternion();
         this.tiempoJugadoPartida = 0;
-        objetos = new List<Objeto>();
+        objetos = new List<Objeto>();*/
     }
 
     public DatosGuardados(double tiempoJugadoTotal, int puntuacion, int vida, float resistencia, int municion, Vector3 posicion, Quaternion rotacion)
@@ -53,8 +53,8 @@ public class DatosGuardados
         this.municion = municion;
         this.posicion = posicion;
         this.rotacion = rotacion;
-        this.tiempoJugadoPartida = 0;
-        objetos = new List<Objeto>();
+        /*this.tiempoJugadoPartida = 0;
+        objetos = new List<Objeto>();*/
     }
 
     public string TiempoFormateado(double tiempoJugadoTotal)

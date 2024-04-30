@@ -35,14 +35,8 @@ public class ArchivosGuardados : MonoBehaviour
         }
         else
         {
-            // datosGuardados.tiempoJugadoTotal = 0;
-            //datosGuardados.puntuacion = 0;
-            //datosGuardados.municion = Constantes.MUNICION_INICIAL;
-            //datosGuardados.posicion = Constantes.POSICION_INICIAL;
-            //datosGuardados.rotacion = new Quaternion(0,0,0,0);
-            //datosGuardados.tiempoJugadoPartida = 0;
-            //datosGuardados.enemigos = new List<GameObject>();
-            //datosGuardados.objetos = new List<GameObject>();
+            InicializarDatosGuardados();
+
             SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datosGuardados);
         }
 
@@ -146,6 +140,8 @@ public class ArchivosGuardados : MonoBehaviour
     {
         BorrarArchivoCarga();
 
+        InicializarDatosGuardados();
+
         SceneManager.LoadScene("Nivel1");
     }
 
@@ -168,4 +164,15 @@ public class ArchivosGuardados : MonoBehaviour
 
         ControlHUD.instancia.botonCargarPartida.interactable = false;
     }
+    private void InicializarDatosGuardados()
+    {
+        datosGuardados.tiempoJugadoTotal = 0;
+        datosGuardados.puntuacion = 0;
+        datosGuardados.municion = Constantes.MUNICION_INICIAL;
+        datosGuardados.posicion = Constantes.POSICION_INICIAL;
+        datosGuardados.rotacion = new Quaternion(0, 0, 0, 0);
+        datosGuardados.tiempoJugadoPartida = 0;
+        datosGuardados.objetos = new List<Objeto>();
+    }
+
 }
