@@ -20,7 +20,6 @@ public class Objeto{
         rw = rotacion.w;
 
     }
-
     public Vector3 GetPosicion(){
         return new Vector3(px, py, pz);
     }

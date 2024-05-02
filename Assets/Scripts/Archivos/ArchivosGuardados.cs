@@ -82,16 +82,16 @@ public class ArchivosGuardados : MonoBehaviour
 
     public void DebugDatosGuardados(DatosGuardados datosGuardados)
     {
-        Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
+        /*Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
         Debug.Log("Puntuacion: " + datosGuardados.puntuacion);
         Debug.Log("Municion: " + datosGuardados.municion);
         Debug.Log("Posicion: " + datosGuardados.posicion);
         Debug.Log("Rotacion: " + datosGuardados.rotacion);
-        Debug.Log("Tiempo Jugado Partida: " + datosGuardados.tiempoJugadoPartida);
+        Debug.Log("Tiempo Jugado Partida: " + datosGuardados.tiempoJugadoPartida);*/
 
         foreach (Objeto objeto in datosGuardados.objetos)
         {
-            Debug.Log("Objeto: " + objeto.ToString());
+            Debug.Log($"Objeto: {objeto.id}");
         }
 
     }
@@ -130,8 +130,7 @@ public class ArchivosGuardados : MonoBehaviour
         //datos.enemigos = ControlJuego.instancia.enemigos;
         datos.objetos = ControlJuego.instancia.objetos;
 
-        ArchivosGuardados.instance.DebugDatosGuardados(datos);
-        Debug.Log(datos.tiempoJugadoPartida);
+        DebugDatosGuardados(datos);
 
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO_CARGA, datos);
     }

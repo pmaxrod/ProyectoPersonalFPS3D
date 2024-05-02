@@ -463,6 +463,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5967553581339458674, guid: 5a0537415d4017c4fad7a4986f502dc1,
+        type: 3}
+      propertyPath: id
+      value: VIDA_1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1470,6 +1475,11 @@ PrefabInstance:
     - target: {fileID: 4000013886378248, guid: 5a0537415d4017c4fad7a4986f502dc1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5967553581339458674, guid: 5a0537415d4017c4fad7a4986f502dc1,
+        type: 3}
+      propertyPath: id
+      value: VIDA_3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2819,6 +2829,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5967553581339458674, guid: 5a0537415d4017c4fad7a4986f502dc1,
+        type: 3}
+      propertyPath: id
+      value: VIDA_2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4056,6 +4071,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2904104848605961909, guid: 5d66031a44e9f694e8878a325f5017af,
         type: 3}
+      propertyPath: id
+      value: ENEMIGO_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2904104848605961909, guid: 5d66031a44e9f694e8878a325f5017af,
+        type: 3}
       propertyPath: velocidad
       value: 3
       objectReference: {fileID: 0}
@@ -5258,6 +5278,8 @@ MonoBehaviour:
   sensibilidadRaton: 3
   maxVistaX: 45
   minVistaX: -45
+  arma: {fileID: 0}
+  controlResistencia: {fileID: 0}
 --- !u!114 &1848774482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5335,6 +5357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resistenciaMax: 100
+  resistenciaActual: 0
   regeneracionResistencia: 5
   usoResistenciaCorrer: 10
   velocidadCorrer: 10
@@ -5855,6 +5878,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2904104848605961909, guid: 5d66031a44e9f694e8878a325f5017af,
         type: 3}
+      propertyPath: id
+      value: ENEMIGO_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2904104848605961909, guid: 5d66031a44e9f694e8878a325f5017af,
+        type: 3}
       propertyPath: rangoPerseguir
       value: 10
       objectReference: {fileID: 0}
@@ -6102,6 +6130,7 @@ MonoBehaviour:
   puntuacionParaGanar: 0
   juegoPausado: 0
   tiempoJugado: 0
+  objetos: []
 --- !u!4 &2139375543
 Transform:
   m_ObjectHideFlags: 0
@@ -6174,6 +6203,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2904104848605961909, guid: 5d66031a44e9f694e8878a325f5017af,
+        type: 3}
+      propertyPath: id
+      value: ENEMIGO_1
       objectReference: {fileID: 0}
     - target: {fileID: 2904104848605961909, guid: 5d66031a44e9f694e8878a325f5017af,
         type: 3}

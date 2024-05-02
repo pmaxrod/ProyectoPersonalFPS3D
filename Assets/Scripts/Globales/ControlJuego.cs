@@ -10,7 +10,7 @@ public class ControlJuego : MonoBehaviour
     public int puntuacionParaGanar;
 
     public bool juegoPausado;
-	public double tiempoJugado;
+    public double tiempoJugado;
 
     public List<Objeto> objetos;
     public static ControlJuego instancia;
@@ -24,13 +24,16 @@ public class ControlJuego : MonoBehaviour
         tiempoJugado = ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida > 0 ? ArchivosGuardados.instance.datosGuardados.tiempoJugadoPartida : 0;
         puntuacionActual = tiempoJugado > 0 ? ArchivosGuardados.instance.datosGuardados.puntuacion : 0;
 
-        if (ArchivosGuardados.instance.archivoCargado){
-            objetos =  ArchivosGuardados.instance.datosGuardados.objetos;
+        if (ArchivosGuardados.instance.archivoCargado)
+        {
+            objetos = ArchivosGuardados.instance.datosGuardados.objetos;
         }
-        else{
+        else
+        {
             objetos = new List<Objeto>();
         }
-     }
+        //Debug.Log(ArchivosGuardados.instance.archivoCargado);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -41,17 +44,18 @@ public class ControlJuego : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.KeypadEnter)){
+        if (Input.GetButtonDown("Cancel") || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
             CambiarPausa();
         }
 
         //Calcular el n�mero de enemigos
         int numEnemigos = GameObject.FindGameObjectsWithTag(Constantes.ETIQUETA_ENEMIGO).ToList().Count;
         //Debug.Log(numEnemigos);
-        if(numEnemigos <= 0)
+        if (numEnemigos <= 0)
             GanarJuego();
 
-		if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.activeSelf)
+        if (!juegoPausado && !ControlHUD.instancia.ventanaFinJuego.activeSelf)
         {
             tiempoJugado += Time.deltaTime;
         }
@@ -85,11 +89,11 @@ public class ControlJuego : MonoBehaviour
     {
         if (!ArchivosGuardados.instance.archivoCargado)
         {
-           objetos.Add(objeto);
+            objetos.Add(objeto);
         }
         else
         {
-            if (objeto != null)
+            if (objeto.id != null)
             {
                 gameObject.transform.position = objeto.GetPosicion();
                 gameObject.transform.rotation = objeto.GetRotacion();
@@ -99,5 +103,8 @@ public class ControlJuego : MonoBehaviour
                 //Destroy(gameObject);
             }
         }
+
+        //        Debug.Log(objeto.id);
+        //        Debug.Log(objetos.Count);
     }
 }

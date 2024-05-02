@@ -11,6 +11,7 @@ public enum TipoExtra
 
 public class ControlExtras : MonoBehaviour
 {
+    public string id;
     public TipoExtra tipo;
     public int cantidad;
 
@@ -29,7 +30,8 @@ public class ControlExtras : MonoBehaviour
                     jugador.IncrementaNumBolas(cantidad);
                     break;
             }
-            ControlJuego.instancia.objetos.Remove(objeto);
+            if (objeto != null)
+                ControlJuego.instancia.objetos.RemoveAll(x => id == x.id);
             Destroy(gameObject);
         }
 
@@ -52,11 +54,11 @@ public class ControlExtras : MonoBehaviour
         }*/
         if (!ArchivosGuardados.instance.archivoCargado)
         {
-            objeto = new Objeto(gameObject.GetInstanceID().ToString(), gameObject.transform.position, gameObject.transform.rotation);
+            objeto = new Objeto(id, gameObject.transform.position, gameObject.transform.rotation);
         }
         else
         {
-            objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
+            objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(id));
         }
 
         ControlJuego.instancia.InstanciarObjetoJuego(objeto, gameObject);

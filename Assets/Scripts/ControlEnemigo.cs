@@ -8,6 +8,7 @@ using System.Linq;
 public class ControlEnemigo : MonoBehaviour
 {
     [Header("Estad�sticas")]
+    public string id;
     public int vidasActual;
     public int vidasMax;
     public int puntuacionEnemigo;
@@ -39,11 +40,11 @@ public class ControlEnemigo : MonoBehaviour
         }*/
         if (!ArchivosGuardados.instance.archivoCargado)
         {
-            objeto = new Objeto(gameObject.GetInstanceID().ToString(), gameObject.transform.position, gameObject.transform.rotation);
+            objeto = new Objeto(id, gameObject.transform.position, gameObject.transform.rotation);
         }
         else
         {
-            objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(gameObject.GetInstanceID().ToString()));
+            objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(id));
         }
 
         ControlJuego.instancia.InstanciarObjetoJuego(objeto, gameObject);
@@ -86,7 +87,8 @@ public class ControlEnemigo : MonoBehaviour
 
         if (vidasActual <= 0)
         {
-            ControlJuego.instancia.objetos.Remove(objeto);
+            if(objeto != null)
+                ControlJuego.instancia.objetos.RemoveAll(x => id == x.id);
             Destroy(gameObject);
         }
     }
