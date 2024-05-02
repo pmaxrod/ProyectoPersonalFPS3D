@@ -91,7 +91,8 @@ public class ArchivosGuardados : MonoBehaviour
 
         foreach (Objeto objeto in datosGuardados.objetos)
         {
-            Debug.Log($"Objeto: {objeto.id}");
+            //Debug.Log($"Objeto: {objeto.id}");
+            Debug.Log(objeto.ToString()); 
         }
 
     }
@@ -165,6 +166,8 @@ public class ArchivosGuardados : MonoBehaviour
     }
     private void InicializarDatosGuardados()
     {
+        datosGuardados.vida = Constantes.VIDA_INICIAL;
+        datosGuardados.resistencia = Constantes.RESISTENCIA_INICIAL;
         datosGuardados.tiempoJugadoTotal = 0;
         datosGuardados.puntuacion = 0;
         datosGuardados.municion = Constantes.MUNICION_INICIAL;

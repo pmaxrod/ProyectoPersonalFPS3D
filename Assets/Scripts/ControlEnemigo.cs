@@ -87,8 +87,7 @@ public class ControlEnemigo : MonoBehaviour
 
         if (vidasActual <= 0)
         {
-            if(objeto != null)
-                ControlJuego.instancia.objetos.RemoveAll(x => id == x.id);
+            ControlJuego.instancia.objetos.RemoveAll(x => id == x.id);
             Destroy(gameObject);
         }
     }

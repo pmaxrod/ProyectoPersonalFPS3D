@@ -87,24 +87,24 @@ public class ControlJuego : MonoBehaviour
 
     public void InstanciarObjetoJuego(Objeto objeto, GameObject gameObject)
     {
+        Debug.Log(objeto.ToString());
         if (!ArchivosGuardados.instance.archivoCargado)
         {
             objetos.Add(objeto);
         }
         else
         {
-            if (objeto.id != null)
+            if (objeto != null)
             {
                 gameObject.transform.position = objeto.GetPosicion();
                 gameObject.transform.rotation = objeto.GetRotacion();
             }
             else
             {
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
         }
 
         //        Debug.Log(objeto.id);
-        //        Debug.Log(objetos.Count);
     }
 }

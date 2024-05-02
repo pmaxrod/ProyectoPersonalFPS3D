@@ -30,8 +30,7 @@ public class ControlExtras : MonoBehaviour
                     jugador.IncrementaNumBolas(cantidad);
                     break;
             }
-            if (objeto != null)
-                ControlJuego.instancia.objetos.RemoveAll(x => id == x.id);
+            ControlJuego.instancia.objetos.RemoveAll(x => id == x.id);
             Destroy(gameObject);
         }
 

@@ -27,4 +27,9 @@ public class Objeto{
     public Quaternion GetRotacion(){
         return new Quaternion(rx, ry, rz, rw);
     }
+
+    override public string ToString()
+    {
+        return $"ID: {id} - Posicion: {GetPosicion()} - Rotacion: {GetRotacion()}";
+    }
 }
