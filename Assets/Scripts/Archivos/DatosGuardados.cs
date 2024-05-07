@@ -15,6 +15,7 @@ public class DatosGuardados
     public Quaternion rotacion;
     public double tiempoJugadoPartida;
     public List<Objeto> objetos;
+    public int puntuacionMaxima;
 
     public DatosGuardados()
     {

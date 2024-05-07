@@ -82,12 +82,13 @@ public class ArchivosGuardados : MonoBehaviour
 
     public void DebugDatosGuardados(DatosGuardados datosGuardados)
     {
-        /*Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
+        Debug.Log("Tiempo Jugado Total: " + datosGuardados.tiempoJugadoTotal);
+        Debug.Log("Tiempo Jugado Partida: " + datosGuardados.tiempoJugadoPartida);
         Debug.Log("Puntuacion: " + datosGuardados.puntuacion);
+        Debug.Log("Puntuacion Maxima: " + datosGuardados.puntuacionMaxima);
         Debug.Log("Municion: " + datosGuardados.municion);
         Debug.Log("Posicion: " + datosGuardados.posicion);
         Debug.Log("Rotacion: " + datosGuardados.rotacion);
-        Debug.Log("Tiempo Jugado Partida: " + datosGuardados.tiempoJugadoPartida);*/
 
         foreach (Objeto objeto in datosGuardados.objetos)
         {
@@ -97,28 +98,29 @@ public class ArchivosGuardados : MonoBehaviour
 
     }
 
-    public void GuardarDatosFin(bool ganado, int puntuacionMaxima, double tiempoArchivo, TextMeshProUGUI textoPuntuacion)
+    public void GuardarDatosFin(bool ganado, int puntuacion, double tiempoArchivo, TextMeshProUGUI textoPuntuacion)
     {
         int puntos;
 
-        if (puntuacionMaxima < ControlJuego.instancia.puntuacionActual && ganado)
+        if (puntuacion < datosGuardados.puntuacionMaxima && ganado)
         {
-            puntos = ControlJuego.instancia.puntuacionActual;
+            puntos = datosGuardados.puntuacionMaxima;
         }
         else
         {
-            puntos = puntuacionMaxima;
+            puntos = puntuacion;
         }
 
         if (textoPuntuacion != null)
             textoPuntuacion.text = "Puntuación máxima: " + puntos;
 
-        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntos);
+        DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, puntuacion);
+        datos.puntuacionMaxima = puntos;
 
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
 
         Debug.Log("Guardando...");
-        ArchivosGuardados.instance.BorrarArchivoCarga();
+        BorrarArchivoCarga();
 
         //Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
     }

@@ -53,14 +53,14 @@ public class ControlExtras : MonoBehaviour
         }*/
         if (!ArchivosGuardados.instance.archivoCargado)
         {
-            objeto = new Objeto(id, gameObject.transform.position, gameObject.transform.rotation);
+            objeto = new Objeto(id, transform.position, transform.rotation);
         }
         else
         {
             objeto = ArchivosGuardados.instance.datosGuardados.objetos.Find(x => x.id.Equals(id));
         }
 
-        ControlJuego.instancia.InstanciarObjetoJuego(objeto, gameObject);
+        ControlJuego.instancia.InstanciarObjetoJuego(objeto, this.gameObject);
 
 
     }

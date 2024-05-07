@@ -100,7 +100,7 @@ public class ControlHUD : MonoBehaviour
             puntuacionTextoFin.color = Color.green;
         }
 
-        ArchivosGuardados.instance.GuardarDatosFin(ganado, puntuacionArchivo, tiempoArchivo, puntuacionMaximaTexto);
+        ArchivosGuardados.instance.GuardarDatosFin(ganado, ControlJuego.instancia.puntuacionActual, ControlJuego.instancia.tiempoJugado, puntuacionMaximaTexto);
 
     }
 
@@ -113,11 +113,11 @@ public class ControlHUD : MonoBehaviour
     {
         ventanaBorrarDatos.SetActive(false);
     }
+
     public void TextoTiempoJugado(double tiempo)
     {
         tiempoJugadoTotal.text = "Tiempo Jugado: " + ArchivosGuardados.instance.datosGuardados.TiempoFormateado(tiempo);
     }
-
 
     public void OnBotonMenu()
     {
