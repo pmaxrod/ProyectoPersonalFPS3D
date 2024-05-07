@@ -99,6 +99,10 @@ public class ControlHUD : MonoBehaviour
             puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
         }
+        else
+        {
+            ArchivosGuardados.instance.BorrarArchivoCarga();
+        }
 
         ArchivosGuardados.instance.GuardarDatosFin(ganado, ControlJuego.instancia.puntuacionActual, ControlJuego.instancia.tiempoJugado, puntuacionMaximaTexto);
 

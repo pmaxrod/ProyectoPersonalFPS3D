@@ -100,13 +100,9 @@ public class ArchivosGuardados : MonoBehaviour
 
     public void GuardarDatosFin(bool ganado, int puntuacion, double tiempoArchivo, TextMeshProUGUI textoPuntuacion)
     {
-        int puntos;
+        int puntos = datosGuardados.puntuacionMaxima;
 
-        if (puntuacion < datosGuardados.puntuacionMaxima && ganado)
-        {
-            puntos = datosGuardados.puntuacionMaxima;
-        }
-        else
+        if((puntuacion > datosGuardados.puntuacionMaxima) && ganado)
         {
             puntos = puntuacion;
         }
@@ -130,6 +126,8 @@ public class ArchivosGuardados : MonoBehaviour
         DatosGuardados datos = new DatosGuardados(tiempoArchivo + ControlJuego.instancia.tiempoJugado, ControlJuego.instancia.puntuacionActual, ControlJugadorIS.instance.vidasActual, ControlJugadorIS.instance.controlResistencia.resistenciaActual, ControlJugadorIS.instance.arma.municionActual, ControlJugadorIS.instance.gameObject.transform.position, ControlJugadorIS.instance.gameObject.transform.rotation);
 
         datos.tiempoJugadoPartida = ControlJuego.instancia.tiempoJugado;
+        datos.puntuacionMaxima = datosGuardados.puntuacionMaxima;
+
         //datos.enemigos = ControlJuego.instancia.enemigos;
         datos.objetos = ControlJuego.instancia.objetos;
 
