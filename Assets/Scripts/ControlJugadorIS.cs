@@ -176,7 +176,8 @@ public class ControlJugadorIS : MonoBehaviour
     private void TerminaJugador()
     {
         Debug.Log("GAME OVER!!!");
-        ControlHUD.instancia.EstablecerVentanaFinJuego(false);
+        ControlJuego.instancia.ganado = false;
+        ControlHUD.instancia.EstablecerVentanaFinJuego(ControlJuego.instancia.ganado);
     }
 
     public void IncrementaVida(int cantidadVida)

@@ -12,8 +12,11 @@ public class ControlJuego : MonoBehaviour
     public bool juegoPausado;
     public double tiempoJugado;
 
+    public bool ganado = false;
+
     public List<Objeto> objetos;
     public static ControlJuego instancia;
+
 
 
     private void Awake()
@@ -82,7 +85,8 @@ public class ControlJuego : MonoBehaviour
 
     public void GanarJuego()
     {
-        ControlHUD.instancia.EstablecerVentanaFinJuego(true);
+        ganado = true;
+        ControlHUD.instancia.EstablecerVentanaFinJuego(ganado);
     }
 
     public void InstanciarObjetoJuego(Objeto objeto, GameObject gameObject)

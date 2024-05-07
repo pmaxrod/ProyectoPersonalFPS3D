@@ -3677,7 +3677,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1182985228}
         m_TargetAssemblyTypeName: ControlHUD, Assembly-CSharp
-        m_MethodName: OnBotonMenu
+        m_MethodName: OnBotonMenuFinPartida
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6130,6 +6130,7 @@ MonoBehaviour:
   puntuacionParaGanar: 0
   juegoPausado: 0
   tiempoJugado: 0
+  ganado: 0
   objetos: []
 --- !u!4 &2139375543
 Transform:

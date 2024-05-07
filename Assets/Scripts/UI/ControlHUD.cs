@@ -99,10 +99,6 @@ public class ControlHUD : MonoBehaviour
             puntuacionTextoFin.text = $"Puntuación: {ControlJuego.instancia.puntuacionActual}";
             puntuacionTextoFin.color = Color.green;
         }
-        else
-        {
-            ArchivosGuardados.instance.BorrarArchivoCarga();
-        }
 
         ArchivosGuardados.instance.GuardarDatosFin(ganado, ControlJuego.instancia.puntuacionActual, ControlJuego.instancia.tiempoJugado, puntuacionMaximaTexto);
 
@@ -126,6 +122,13 @@ public class ControlHUD : MonoBehaviour
     public void OnBotonMenu()
     {
         ArchivosGuardados.instance.GuardarDatosCarga(tiempoArchivo);
+
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void OnBotonMenuFinPartida()
+    {
+        ArchivosGuardados.instance.BorrarArchivoCarga();
 
         SceneManager.LoadScene("Menu");
     }

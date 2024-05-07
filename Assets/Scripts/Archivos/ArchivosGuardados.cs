@@ -116,8 +116,6 @@ public class ArchivosGuardados : MonoBehaviour
         SaveGame.Save(Constantes.NOMBRE_ARCHIVO_GUARDADO, datos);
 
         Debug.Log("Guardando...");
-        BorrarArchivoCarga();
-
         //Debug.Log($"Archivo: {puntuacionArchivo} - Partida: {ControlJuego.instancia.puntuacionActual}");
     }
 
